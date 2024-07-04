@@ -17,6 +17,7 @@ namespace ManagerCont
             comboBox1.Items.Add("CATMAY");
             comboBox1.Items.Add("DATOS");
             comboBox1.Items.Add("OPERACIONES");
+            comboBox1.Enabled = false; // Deshabilitar comboBox1 inicialmente
 
             comboBox2.Items.Add("01");
             comboBox2.Items.Add("02");
@@ -30,17 +31,41 @@ namespace ManagerCont
             comboBox2.Items.Add("10");
             comboBox2.Items.Add("11");
             comboBox2.Items.Add("12");
+            comboBox2.Enabled = false; // Deshabilitar comboBox2 inicialmente
 
-            comboBox3.Items.Add("EPESA");
-            comboBox3.Items.Add("CONTROL");
-            comboBox3.Items.Add("INGENIAL");
-            comboBox3.Items.Add("SUPERVISA");
-            comboBox3.Items.Add("CONSULTE");
-            comboBox3.Items.Add("CORDINA");
-            comboBox3.Items.Add("SACMAG");
-            comboBox3.Items.Add("GEOAMBIENTE");
+            comboBox3.Items.Add("EPE");
+            comboBox3.Items.Add("CON");
+            comboBox3.Items.Add("ING");
+            comboBox3.Items.Add("SUP");
+            comboBox3.Items.Add("CONS");
+            comboBox3.Items.Add("COR");
+            comboBox3.Items.Add("SAC");
+            comboBox3.Items.Add("GEO");
 
+            comboBox3.SelectedIndexChanged += ComboBox3_SelectedIndexChanged; // Agregar manejador de evento
+            comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged; // Agregar manejador de evento
         }
+
+        private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Habilitar comboBox2 si se selecciona un elemento en comboBox3, de lo contrario, deshabilitarlo
+            comboBox2.Enabled = comboBox3.SelectedIndex != -1;
+            // Llamar a método para actualizar el estado de comboBox1
+            ActualizarEstadoComboBox1();
+        }
+
+        private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Llamar a método para actualizar el estado de comboBox1
+            ActualizarEstadoComboBox1();
+        }
+
+        private void ActualizarEstadoComboBox1()
+        {
+            // Habilitar comboBox1 si ambos comboBox2 y comboBox3 tienen una selección, de lo contrario, deshabilitarlo
+            comboBox1.Enabled = comboBox2.SelectedIndex != -1 && comboBox3.SelectedIndex != -1;
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -68,10 +93,9 @@ namespace ManagerCont
                         }
                         else
                         {
-                            CargarArchivoCSV(Path.Combine(archivosPath, "COR" + comboBox2.SelectedItem.ToString() + ".csv"));
+                            CargarArchivoCSV(Path.Combine(archivosPath, comboBox3.SelectedItem.ToString() + comboBox2.SelectedItem.ToString() + ".csv"));
                         }
                         break;
-
 
                     default:
                         MessageBox.Show("Selección no válida");
@@ -83,8 +107,6 @@ namespace ManagerCont
                 MessageBox.Show("Se ha producido un error: " + ex.Message);
             }
         }
-
-
 
         private void CargarArchivoCSV(string archivoPath)
         {
@@ -185,30 +207,7 @@ namespace ManagerCont
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                string archivosPath = @"C:\Users\david.albino\Desktop\CSVs\"; // Ruta literal al directorio donde están los archivos
 
-                switch (comboBox2.SelectedItem.ToString())
-                {
-                    case "01":
-
-                            CargarArchivoCSV(Path.Combine(archivosPath, comboBox3 + comboBox2.SelectedItem.ToString() + ".csv"));
-
-                        break;
-
-
-                    default:
-                        MessageBox.Show("Selección no válida");
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Se ha producido un error: " + ex.Message);
-            }
         }
-
     }
-    
 }
