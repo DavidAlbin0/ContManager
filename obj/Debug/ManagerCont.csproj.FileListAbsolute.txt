@@ -8,3 +8,4 @@ C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont
 C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont.csproj.CoreCompileInputs.cache
 C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont.exe
 C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont.pdb
+C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont.Form2.resources

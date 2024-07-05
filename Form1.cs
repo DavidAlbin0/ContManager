@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+
 
 namespace ManagerCont
 {
@@ -44,6 +46,8 @@ namespace ManagerCont
 
             comboBox3.SelectedIndexChanged += ComboBox3_SelectedIndexChanged; // Agregar manejador de evento
             comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged; // Agregar manejador de evento
+
+            button7.Click += button7_Click; // Agregar manejador de evento para button7
         }
 
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -158,7 +162,6 @@ namespace ManagerCont
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Verifica que se hizo clic en una celda válida
             {
                 DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
             }
         }
 
@@ -208,6 +211,131 @@ namespace ManagerCont
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Crear una instancia del formulario Form2
+            Form2 form2 = new Form2();
+
+            // Mostrar Form2
+            form2.Show();
+        }
+
+        // Método para interpretar una línea de texto según la estructura y cargar en el DataGridView
+        private void InterpretarYMostrarDatos(string linea)
+        {
+            try
+            {
+                // Limpiar DataGridView antes de cargar nuevos datos
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
+
+                // Configurar columnas del DataGridView
+                dataGridView1.Columns.Add("CTA", "CTA");
+                dataGridView1.Columns.Add("descr", "descr");
+                dataGridView1.Columns.Add("fe", "fe");
+                dataGridView1.Columns.Add("impte", "impte");
+                dataGridView1.Columns.Add("indenti", "indenti");
+                dataGridView1.Columns.Add("real", "real");
+
+                int index = 0;
+                while (index + 64 <= linea.Length)
+                {
+                    // Interpretar cada campo según los índices especificados
+                    string CTA = linea.Substring(index, 6).Trim().PadRight(6);
+                    string descr = linea.Substring(index + 6, 30).Trim().PadRight(30);
+                    string fe = linea.Substring(index + 36, 2).Trim().PadRight(2);
+                    string impte = linea.Substring(index + 38, 16).Trim().PadRight(16);
+                    string indenti = linea.Substring(index + 54, 1).Trim().PadRight(1);
+                    string real = linea.Substring(index + 55, 9).Trim().PadRight(9);
+
+                    // Agregar fila al DataGridView
+                    dataGridView1.Rows.Add(CTA, descr, fe, impte, indenti, real);
+
+                    // Avanzar al siguiente conjunto de datos
+                    index += 64;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al interpretar y mostrar los datos: " + ex.Message);
+            }
+        }
+
+        // Evento para manejar el botón que carga y muestra los datos en el DataGridView
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                openFileDialog1.Filter = "Archivos de Texto|*"; // Filtro para archivos de texto
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog1.FileName;
+
+                    // Leer la línea completa del archivo
+                    string lineaCompleta = File.ReadAllText(filePath, Encoding.UTF8);
+
+                    // Llamar al método para interpretar y mostrar los datos
+                    InterpretarYMostrarDatos(lineaCompleta);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el archivo: " + ex.Message);
+            }
+        }
+
+        // Evento para guardar los datos del DataGridView en un archivo de texto sin extensión
+        private void button8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Archivo de Texto|*."; // Filtro para archivos de texto sin extensión
+                saveFileDialog1.Title = "Guardar datos en archivo de texto sin extensión";
+                saveFileDialog1.FileName = "datos_guardados"; // Nombre base del archivo
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog1.FileName;
+
+                    // Crear un StringBuilder para construir el contenido del archivo
+                    StringBuilder sb = new StringBuilder();
+
+                    // Construir el contenido del archivo a partir de los datos del DataGridView
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        // Verificar si la fila no está vacía
+                        if (!row.IsNewRow)
+                        {
+                            string CTA = Convert.ToString(row.Cells["CTA"].Value).PadRight(6);
+                            string descr = Convert.ToString(row.Cells["descr"].Value).PadRight(30);
+                            string fe = Convert.ToString(row.Cells["fe"].Value).PadRight(2);
+                            string impte = Convert.ToString(row.Cells["impte"].Value).PadRight(16);
+                            string indenti = Convert.ToString(row.Cells["indenti"].Value).PadRight(1);
+                            string real = Convert.ToString(row.Cells["real"].Value).PadRight(9);
+
+                            // Combinar los campos en una línea y agregar al StringBuilder
+                            string line = $"{CTA}{descr}{fe}{impte}{indenti}{real}";
+                            sb.Append(line); // Usar Append en lugar de AppendLine para evitar saltos de línea adicionales
+                        }
+                    }
+
+                    // Escribir el contenido del StringBuilder en el archivo de texto
+                    File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
+
+                    MessageBox.Show("Datos guardados correctamente en: " + filePath, "Guardar datos",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar los datos: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
