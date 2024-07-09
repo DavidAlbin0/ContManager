@@ -48,9 +48,56 @@ namespace ManagerCont
             comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged; // Agregar manejador de evento
 
             button7.Click += button7_Click; // Agregar manejador de evento para button7
+
+            // Inicialmente ocultar todos los componentes que quieres controlar por menú
+            dataGridView1.Visible = false;
+            button8.Visible = false;
+            button7.Visible = false;
+            label1.Visible = false;
+            label2.Visible = false;
+            button2.Visible = false;
+            comboBox3.Visible = false;
+            comboBox2.Visible = false;
+            comboBox1.Visible = false;
         }
 
+        private void rANDOMToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+   
 
+            // Mostrar componentes para la opción "Random"
+            dataGridView1.Visible = true;
+            button8.Visible = true;
+            button7.Visible = true;
+            label1.Visible = true;
+
+            // Ocultar otros componentes
+            label2.Visible = false;
+            button2.Visible = false;
+            comboBox3.Visible = false;
+            comboBox2.Visible = false;
+            comboBox1.Visible = false;
+        }
+
+        private void cSVToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear(); // Limpiar encabezados de columnas también
+
+
+            // Mostrar componentes para la opción "CSV"
+            label2.Visible = true;
+            dataGridView1.Visible = true;
+            button2.Visible = true;
+            comboBox3.Visible = true;
+            comboBox2.Visible = true;
+            comboBox1.Visible = true;
+
+            // Ocultar otros componentes
+            button8.Visible = false;
+            button7.Visible = false;
+            label1.Visible = false;
+        }
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Habilitar comboBox2 si se selecciona un elemento en comboBox3, de lo contrario, deshabilitarlo
@@ -612,6 +659,83 @@ namespace ManagerCont
             }
         }
 
+        private void RANDOMToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // Limpiar DataGridView antes de mostrar nuevos datos
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear(); // Limpiar encabezados de columnas también
+
+            // Mostrar componentes para la opción "Random"
+            dataGridView1.Visible = true;
+            button8.Visible = true;
+            button7.Visible = true;
+            label1.Visible = true;
+
+            // Ocultar otros componentes
+            label2.Visible = false;
+            button2.Visible = false;
+            comboBox3.Visible = false;
+            comboBox2.Visible = false;
+            comboBox1.Visible = false;
+
+            // Identificar y aplicar formato a las columnas con solo números
+            ApplyNumericFormatting(dataGridView1);
+        }
+
+        private void CSVToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // Limpiar DataGridView antes de mostrar nuevos datos
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear(); // Limpiar encabezados de columnas también
+
+            // Mostrar componentes para la opción "CSV"
+            label2.Visible = true;
+            dataGridView1.Visible = true;
+            button2.Visible = true;
+            comboBox3.Visible = true;
+            comboBox2.Visible = true;
+            comboBox1.Visible = true;
+
+            // Ocultar otros componentes
+            button8.Visible = false;
+            button7.Visible = false;
+            label1.Visible = false;
+
+            // Identificar y aplicar formato a las columnas con solo números
+            ApplyNumericFormatting(dataGridView1);
+        }
+
+        private void ApplyNumericFormatting(DataGridView dgv)
+        {
+            for (int i = 0; i < dgv.Columns.Count; i++)
+            {
+                if (IsNumericColumn(dgv, i))
+                {
+                    if (i == 2) // Verificar si es la columna 3 para CATMAY y CATAUX (índice 2 porque es 0-based)
+                    {
+                        dgv.Columns[i].DefaultCellStyle.Format = "#,##0.00";
+                    }
+                    else if (i == 3) // Verificar si es la columna 4 para operaciones (índice 3 porque es 0-based)
+                    {
+                        dgv.Columns[i].DefaultCellStyle.Format = "#,##0.00";
+                    }
+                }
+            }
+        }
+
+        private bool IsNumericColumn(DataGridView dgv, int columnIndex)
+        {
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.Cells[columnIndex].Value != null &&
+                    !double.TryParse(row.Cells[columnIndex].Value.ToString(), out _))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
 
         // Función del evento del botón 8 para guardar con la estructura específica
@@ -667,6 +791,5 @@ namespace ManagerCont
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }

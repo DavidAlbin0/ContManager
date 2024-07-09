@@ -40,7 +40,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip4 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rANDOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.aRCHIVOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rANDOMToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cSVToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip4.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -95,7 +106,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(970, 23);
+            this.button7.Location = new System.Drawing.Point(970, 31);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(125, 44);
             this.button7.TabIndex = 7;
@@ -104,7 +115,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(1101, 23);
+            this.button8.Location = new System.Drawing.Point(1101, 31);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(168, 44);
             this.button8.TabIndex = 8;
@@ -144,11 +155,80 @@
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
+            // contextMenuStrip3
+            // 
+            this.contextMenuStrip3.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip3.Name = "contextMenuStrip3";
+            this.contextMenuStrip3.Size = new System.Drawing.Size(61, 4);
+            // 
+            // contextMenuStrip4
+            // 
+            this.contextMenuStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rANDOMToolStripMenuItem,
+            this.cSVToolStripMenuItem,
+            this.toolStripComboBox1});
+            this.contextMenuStrip4.Name = "contextMenuStrip4";
+            this.contextMenuStrip4.Size = new System.Drawing.Size(182, 84);
+            // 
+            // rANDOMToolStripMenuItem
+            // 
+            this.rANDOMToolStripMenuItem.Name = "rANDOMToolStripMenuItem";
+            this.rANDOMToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
+            this.rANDOMToolStripMenuItem.Text = "RANDOM";
+            // 
+            // cSVToolStripMenuItem
+            // 
+            this.cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
+            this.cSVToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
+            this.cSVToolStripMenuItem.Text = "CSV";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 28);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aRCHIVOToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1298, 28);
+            this.menuStrip1.TabIndex = 15;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // aRCHIVOToolStripMenuItem
+            // 
+            this.aRCHIVOToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rANDOMToolStripMenuItem1,
+            this.cSVToolStripMenuItem1});
+            this.aRCHIVOToolStripMenuItem.Name = "aRCHIVOToolStripMenuItem";
+            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
+            this.aRCHIVOToolStripMenuItem.Text = "ARCHIVO";
+            // 
+            // rANDOMToolStripMenuItem1
+            // 
+            this.rANDOMToolStripMenuItem1.Name = "rANDOMToolStripMenuItem1";
+            this.rANDOMToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.rANDOMToolStripMenuItem1.Text = "RANDOM";
+            this.rANDOMToolStripMenuItem1.Click += new System.EventHandler(this.rANDOMToolStripMenuItem1_Click);
+            // 
+            // cSVToolStripMenuItem1
+            // 
+            this.cSVToolStripMenuItem1.Name = "cSVToolStripMenuItem1";
+            this.cSVToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.cSVToolStripMenuItem1.Text = "CSV";
+            this.cSVToolStripMenuItem1.Click += new System.EventHandler(this.cSVToolStripMenuItem1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 814);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button8);
@@ -158,9 +238,13 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dataGridView1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip4.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,6 +263,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip4;
+        private System.Windows.Forms.ToolStripMenuItem rANDOMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cSVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem aRCHIVOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rANDOMToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem cSVToolStripMenuItem1;
     }
 }
 
