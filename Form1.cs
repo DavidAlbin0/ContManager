@@ -52,6 +52,8 @@ namespace ManagerCont
 
             // Inicialmente ocultar todos los componentes que quieres controlar por menú
             dataGridView1.Visible = false;
+            button1.Visible = false;
+            button3.Visible = false;
             button8.Visible = false;
             button7.Visible = false;
             label1.Visible = false;
@@ -71,8 +73,11 @@ namespace ManagerCont
             button8.Visible = true;
             button7.Visible = true;
             label1.Visible = true;
+            button1.Visible = true;
+
 
             // Ocultar otros componentes
+            button3.Visible = false;
             label2.Visible = false;
             button2.Visible = false;
             comboBox3.Visible = false;
@@ -93,8 +98,11 @@ namespace ManagerCont
             comboBox3.Visible = true;
             comboBox2.Visible = true;
             comboBox1.Visible = true;
+            button3.Visible = true;
+
 
             // Ocultar otros componentes
+            button1.Visible = false;
             button8.Visible = false;
             button7.Visible = false;
             label1.Visible = false;
@@ -566,7 +574,7 @@ namespace ManagerCont
             try
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Archivo de Texto|*.txt"; // Filtro para archivos de texto con extensión .txt
+                saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
                 saveFileDialog1.Title = "Guardar datos CATMAY en archivo de texto";
                 saveFileDialog1.FileName = "datos_catmay"; // Nombre base del archivo
 
@@ -586,7 +594,12 @@ namespace ManagerCont
                             // Obtener y formatear los valores de las celdas según los parámetros proporcionados
                             string Cuenta = Convert.ToString(row.Cells["Cuenta"].Value).PadRight(Cuenta_Length).Substring(0, Cuenta_Length);
                             string Nombre = Convert.ToString(row.Cells["Nombre"].Value).PadRight(Nombre_Length).Substring(0, Nombre_Length);
-                            string Saldo = Convert.ToString(row.Cells["Saldo"].Value).PadRight(Saldo_Length).Substring(0, Saldo_Length);
+
+                            // Obtener el valor de Saldo y quitar puntos si es necesario
+                            string SaldoValue = Convert.ToString(row.Cells["Saldo"].Value);
+                            SaldoValue = SaldoValue.Replace(".", ""); // Quitar puntos
+
+                            string Saldo = SaldoValue.PadRight(Saldo_Length).Substring(0, Saldo_Length);
                             string Rango_Inf = Convert.ToString(row.Cells["Rango_Inf"].Value).PadRight(Rango_Inf_Length).Substring(0, Rango_Inf_Length);
                             string Rango_Sup = Convert.ToString(row.Cells["Rango_Sup"].Value).PadRight(Rango_Sup_Length).Substring(0, Rango_Sup_Length);
 
@@ -609,6 +622,7 @@ namespace ManagerCont
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void GuardarDatos(int D1_Length, int D2_Length, int D3_Length, int No_arch_Length, int a_o_Length, int Others1_Length, int ultimaPol1_Length, int ultimoReg_Length, int others_Length)
         {
@@ -863,6 +877,85 @@ namespace ManagerCont
             catch (Exception ex)
             {
                 MessageBox.Show("Error al formatear la columna según el valor de label1: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el valor seleccionado del ComboBox
+                string selectedValue = comboBox1.SelectedItem?.ToString();
+
+                // Determinar la columna a utilizar según el valor seleccionado del ComboBox
+                int columnIndex;
+                if (selectedValue == "CATAUX" || selectedValue == "CATMAY")
+                {
+                    // Usar la columna "B3"
+                    if (!dataGridView1.Columns.Contains("B3"))
+                    {
+                        MessageBox.Show("La columna 'B3' no existe en el DataGridView.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    columnIndex = dataGridView1.Columns["B3"].Index;
+                }
+                else if (selectedValue != null && (selectedValue.StartsWith("SAC") || selectedValue.StartsWith("COR") || selectedValue.StartsWith("EPE")))
+                {
+                    // Usar la columna "impte"
+                    if (!dataGridView1.Columns.Contains("impte"))
+                    {
+                        MessageBox.Show("La columna 'impte' no existe en el DataGridView.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    columnIndex = dataGridView1.Columns["impte"].Index;
+                }
+                else
+                {
+                    MessageBox.Show("No se puede determinar la columna adecuada para el valor seleccionado del ComboBox.", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Convertir los valores de la columna a tipo double y formatear
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    if (row.Cells[columnIndex].Value != null)
+                    {
+                        string cellValue = row.Cells[columnIndex].Value.ToString().Trim();
+
+                        // Reemplazar solo las comas que no sean parte de números decimales
+                        if (cellValue.Contains(","))
+                        {
+                            // Comprobar si la coma es un separador decimal y no un separador de miles
+                            if (cellValue.Count(c => c == ',') == 1 && cellValue.IndexOf(',') == cellValue.Length - 3)
+                            {
+                                // Es un número decimal con coma, reemplazar comas por puntos
+                                cellValue = cellValue.Replace(",", ".");
+                            }
+                            else
+                            {
+                                // Es un número con separador de miles, eliminar comas
+                                cellValue = cellValue.Replace(",", "");
+                            }
+                        }
+
+                        if (double.TryParse(cellValue, NumberStyles.Number, CultureInfo.InvariantCulture, out double value))
+                        {
+                            row.Cells[columnIndex].Value = value;
+                        }
+                    }
+                }
+
+                // Aplicar el formato y alineación
+                dataGridView1.Columns[columnIndex].DefaultCellStyle.Format = "#,##0.00";
+                dataGridView1.Columns[columnIndex].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al formatear la columna según el valor seleccionado del ComboBox: " + ex.Message, "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
