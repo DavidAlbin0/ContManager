@@ -49,6 +49,7 @@
             this.aRCHIVOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rANDOMToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cSVToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -57,6 +58,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dataGridView1.Location = new System.Drawing.Point(30, 119);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
@@ -212,22 +214,33 @@
             // rANDOMToolStripMenuItem1
             // 
             this.rANDOMToolStripMenuItem1.Name = "rANDOMToolStripMenuItem1";
-            this.rANDOMToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.rANDOMToolStripMenuItem1.Size = new System.Drawing.Size(157, 26);
             this.rANDOMToolStripMenuItem1.Text = "RANDOM";
             this.rANDOMToolStripMenuItem1.Click += new System.EventHandler(this.rANDOMToolStripMenuItem1_Click);
             // 
             // cSVToolStripMenuItem1
             // 
             this.cSVToolStripMenuItem1.Name = "cSVToolStripMenuItem1";
-            this.cSVToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.cSVToolStripMenuItem1.Size = new System.Drawing.Size(157, 26);
             this.cSVToolStripMenuItem1.Text = "CSV";
             this.cSVToolStripMenuItem1.Click += new System.EventHandler(this.cSVToolStripMenuItem1_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(846, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 44);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 814);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -272,6 +285,7 @@
         private System.Windows.Forms.ToolStripMenuItem aRCHIVOToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rANDOMToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem cSVToolStripMenuItem1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

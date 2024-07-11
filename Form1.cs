@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -98,6 +99,9 @@ namespace ManagerCont
             button7.Visible = false;
             label1.Visible = false;
         }
+
+
+
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Habilitar comboBox2 si se selecciona un elemento en comboBox3, de lo contrario, deshabilitarlo
@@ -679,7 +683,6 @@ namespace ManagerCont
             comboBox1.Visible = false;
 
             // Identificar y aplicar formato a las columnas con solo números
-            ApplyNumericFormatting(dataGridView1);
         }
 
         private void CSVToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -702,26 +705,8 @@ namespace ManagerCont
             label1.Visible = false;
 
             // Identificar y aplicar formato a las columnas con solo números
-            ApplyNumericFormatting(dataGridView1);
         }
 
-        private void ApplyNumericFormatting(DataGridView dgv)
-        {
-            for (int i = 0; i < dgv.Columns.Count; i++)
-            {
-                if (IsNumericColumn(dgv, i))
-                {
-                    if (i == 2) // Verificar si es la columna 3 para CATMAY y CATAUX (índice 2 porque es 0-based)
-                    {
-                        dgv.Columns[i].DefaultCellStyle.Format = "#,##0.00";
-                    }
-                    else if (i == 3) // Verificar si es la columna 4 para operaciones (índice 3 porque es 0-based)
-                    {
-                        dgv.Columns[i].DefaultCellStyle.Format = "#,##0.00";
-                    }
-                }
-            }
-        }
 
         private bool IsNumericColumn(DataGridView dgv, int columnIndex)
         {
@@ -736,9 +721,20 @@ namespace ManagerCont
             return true;
         }
 
+        private void FormatearColumna(DataGridView grid, int columnaIndex, string formato)
+        {
+            if (columnaIndex >= 0 && columnaIndex < grid.Columns.Count)
+            {
+                grid.Columns[columnaIndex].DefaultCellStyle.Format = formato;
+                grid.Columns[columnaIndex].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            else
+            {
+                MessageBox.Show($"El índice de columna {columnaIndex} está fuera de los límites del DataGridView.", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-
-        // Función del evento del botón 8 para guardar con la estructura específica
         private void button8_Click(object sender, EventArgs e)
         {
             try
@@ -754,6 +750,7 @@ namespace ManagerCont
                 {
                     // Llamar a la función GuardarCats con las longitudes específicas
                     GuardarCats(6, 32, 16, 5, 5);
+                    // Formatear y alinear la columna en el índice 2
                 }
                 else if (label1Content.StartsWith("SAC") || label1Content.StartsWith("COR") || label1Content.StartsWith("SUP"))
                 {
@@ -791,5 +788,84 @@ namespace ManagerCont
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el valor del label1
+                string label1Value = label1.Text;
+
+                // Determinar la columna a utilizar según el valor de label1
+                int columnIndex;
+                if (label1Value == "CATAUX" || label1Value == "CATMAY")
+                {
+                    // Usar la columna "Saldo"
+                    if (!dataGridView1.Columns.Contains("Saldo"))
+                    {
+                        MessageBox.Show("La columna 'Saldo' no existe en el DataGridView.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    columnIndex = dataGridView1.Columns["Saldo"].Index;
+                }
+                else if (label1Value.StartsWith("SAC") || label1Value.StartsWith("COR") || label1Value.StartsWith("EPE"))
+                {
+                    // Usar la columna "impte"
+                    if (!dataGridView1.Columns.Contains("impte"))
+                    {
+                        MessageBox.Show("La columna 'impte' no existe en el DataGridView.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    columnIndex = dataGridView1.Columns["impte"].Index;
+                }
+                else
+                {
+                    MessageBox.Show("No se puede determinar la columna adecuada para el valor de label1: " + label1Value, "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Convertir los valores de la columna a tipo double y formatear
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    if (row.Cells[columnIndex].Value != null)
+                    {
+                        string cellValue = row.Cells[columnIndex].Value.ToString().Trim();
+
+                        // Reemplazar solo las comas que no sean parte de números decimales
+                        if (cellValue.Contains(","))
+                        {
+                            // Comprobar si la coma es un separador decimal y no un separador de miles
+                            if (cellValue.Count(c => c == ',') == 1 && cellValue.IndexOf(',') == cellValue.Length - 3)
+                            {
+                                // Es un número decimal con coma, reemplazar comas por puntos
+                                cellValue = cellValue.Replace(",", ".");
+                            }
+                            else
+                            {
+                                // Es un número con separador de miles, eliminar comas
+                                cellValue = cellValue.Replace(",", "");
+                            }
+                        }
+
+                        if (double.TryParse(cellValue, NumberStyles.Number, CultureInfo.InvariantCulture, out double value))
+                        {
+                            row.Cells[columnIndex].Value = value;
+                        }
+                    }
+                }
+
+                // Aplicar el formato y alineación
+                dataGridView1.Columns[columnIndex].DefaultCellStyle.Format = "#,##0.00";
+                dataGridView1.Columns[columnIndex].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al formatear la columna según el valor de label1: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
