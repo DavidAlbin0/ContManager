@@ -144,6 +144,7 @@ namespace ManagerCont
                         label1.Text = string.Empty; // Limpiar el texto del label si no se selecciona un archivo válido
                         break;
                     case "CATAUX":
+
                         selectedFilePath = Path.Combine(archivosPath, "CATAUX.csv");
                         CargarArchivoCSV(selectedFilePath);
                         label1.Text = "CATAUX"; // Asignar la ruta completa al label
@@ -384,7 +385,7 @@ namespace ManagerCont
                 dataGridView1.Columns.Add("a_o", "a_o");
                 dataGridView1.Columns.Add("others1", "others1");
                 dataGridView1.Columns.Add("ultimaPol1", "ultimaPol1");
-                dataGridView1.Columns.Add("ultimoReg", "ultimoReg");
+                dataGridView1.Columns.Add("ultimaOperacionReg", "ultimaOperacionReg");
                 dataGridView1.Columns.Add("others", "others");
 
 
@@ -524,7 +525,7 @@ namespace ManagerCont
             try
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Archivo de Texto|*.txt"; // Filtro para archivos de texto con extensión .txt
+                saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
                 saveFileDialog1.Title = "Guardar datos en archivo de texto";
                 saveFileDialog1.FileName = "datos_guardados"; // Nombre base del archivo
 
@@ -629,7 +630,7 @@ namespace ManagerCont
             try
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Archivo de Texto|*.txt"; // Filtro para archivos de texto con extensión .txt
+                saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
                 saveFileDialog1.Title = "Guardar datos en archivo de texto";
                 saveFileDialog1.FileName = "datos_guardados"; // Nombre base del archivo
 
@@ -654,7 +655,7 @@ namespace ManagerCont
                             string a_o = Convert.ToString(row.Cells["a_o"].Value).PadRight(a_o_Length).Substring(0, a_o_Length);
                             string Others1 = Convert.ToString(row.Cells["others1"].Value).PadRight(Others1_Length).Substring(0, Others1_Length);
                             string ultimaPol1 = Convert.ToString(row.Cells["ultimaPol1"].Value).PadRight(ultimaPol1_Length).Substring(0, ultimaPol1_Length);
-                            string ultimoReg = Convert.ToString(row.Cells["ultimoReg"].Value).PadRight(ultimoReg_Length).Substring(0, ultimoReg_Length);
+                            string ultimoReg = Convert.ToString(row.Cells["ultimaOperacionReg"].Value).PadRight(ultimoReg_Length).Substring(0, ultimoReg_Length);
                             string others = Convert.ToString(row.Cells["others"].Value).PadRight(others_Length).Substring(0, others_Length);
 
                             // Combinar los campos en una línea y agregar al StringBuilder
