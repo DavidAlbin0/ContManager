@@ -51,6 +51,9 @@
             this.cSVToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.gUARDARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gUARDARRANDOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gUARDARCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -188,7 +191,6 @@
             // 
             // toolStripComboBox1
             // 
-            this.toolStripComboBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 28);
             // 
@@ -196,7 +198,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aRCHIVOToolStripMenuItem});
+            this.aRCHIVOToolStripMenuItem,
+            this.gUARDARToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1298, 28);
@@ -245,6 +248,29 @@
             this.button3.Text = "Dar formato";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // gUARDARToolStripMenuItem
+            // 
+            this.gUARDARToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gUARDARRANDOMToolStripMenuItem,
+            this.gUARDARCSVToolStripMenuItem});
+            this.gUARDARToolStripMenuItem.Name = "gUARDARToolStripMenuItem";
+            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
+            this.gUARDARToolStripMenuItem.Text = "GUARDAR";
+            // 
+            // gUARDARRANDOMToolStripMenuItem
+            // 
+            this.gUARDARRANDOMToolStripMenuItem.Name = "gUARDARRANDOMToolStripMenuItem";
+            this.gUARDARRANDOMToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gUARDARRANDOMToolStripMenuItem.Text = "RANDOM";
+            this.gUARDARRANDOMToolStripMenuItem.Click += new System.EventHandler(this.gUARDARRANDOMToolStripMenuItem_Click);
+            // 
+            // gUARDARCSVToolStripMenuItem
+            // 
+            this.gUARDARCSVToolStripMenuItem.Name = "gUARDARCSVToolStripMenuItem";
+            this.gUARDARCSVToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gUARDARCSVToolStripMenuItem.Text = "CSV";
+            this.gUARDARCSVToolStripMenuItem.Click += new System.EventHandler(this.gUARDARCSVToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -299,6 +325,9 @@
         private System.Windows.Forms.ToolStripMenuItem cSVToolStripMenuItem1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStripMenuItem gUARDARToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gUARDARRANDOMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gUARDARCSVToolStripMenuItem;
     }
 }
 

@@ -66,7 +66,7 @@ namespace ManagerCont
 
         private void rANDOMToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-   
+
 
             // Mostrar componentes para la opción "Random"
             dataGridView1.Visible = true;
@@ -92,7 +92,7 @@ namespace ManagerCont
 
 
             // Mostrar componentes para la opción "CSV"
-            label2.Visible = true;
+            label2.Visible = false;
             dataGridView1.Visible = true;
             button2.Visible = true;
             comboBox3.Visible = true;
@@ -105,7 +105,7 @@ namespace ManagerCont
             button1.Visible = false;
             button8.Visible = false;
             button7.Visible = false;
-            label1.Visible = false;
+            label1.Visible = true;
         }
 
 
@@ -141,22 +141,22 @@ namespace ManagerCont
                 switch (comboBox1.SelectedItem.ToString())
                 {
                     case "Seleccione un archivo":
-                        label2.Text = string.Empty; // Limpiar el texto del label si no se selecciona un archivo válido
+                        label1.Text = string.Empty; // Limpiar el texto del label si no se selecciona un archivo válido
                         break;
                     case "CATAUX":
                         selectedFilePath = Path.Combine(archivosPath, "CATAUX.csv");
                         CargarArchivoCSV(selectedFilePath);
-                        label2.Text = selectedFilePath; // Asignar la ruta completa al label
+                        label1.Text = "CATAUX"; // Asignar la ruta completa al label
                         break;
                     case "CATMAY":
                         selectedFilePath = Path.Combine(archivosPath, "CATMAY.csv");
                         CargarArchivoCSV(selectedFilePath);
-                        label2.Text = selectedFilePath; // Asignar la ruta completa al label
+                        label1.Text = "CATMAY"; // Asignar la ruta completa al label
                         break;
                     case "DATOS":
                         selectedFilePath = Path.Combine(archivosPath, "DATOS.csv");
                         CargarArchivoCSV(selectedFilePath);
-                        label2.Text = selectedFilePath; // Asignar la ruta completa al label
+                        label1.Text = "DATOS"; // Asignar la ruta completa al label
                         break;
                     case "OPERACIONES":
                         if (comboBox2.SelectedIndex == -1 || comboBox2.SelectedItem.ToString() == "Valor Predeterminado")
@@ -168,7 +168,7 @@ namespace ManagerCont
                         {
                             selectedFilePath = Path.Combine(archivosPath, comboBox3.SelectedItem.ToString() + comboBox2.SelectedItem.ToString() + ".csv");
                             CargarArchivoCSV(selectedFilePath);
-                            label2.Text = selectedFilePath; // Asignar la ruta completa al label
+                            label1.Text = comboBox3.SelectedItem.ToString() + comboBox2.SelectedItem.ToString(); // Asignar la ruta completa al label
                         }
                         break;
                     default:
@@ -706,17 +706,19 @@ namespace ManagerCont
             dataGridView1.Columns.Clear(); // Limpiar encabezados de columnas también
 
             // Mostrar componentes para la opción "CSV"
-            label2.Visible = true;
             dataGridView1.Visible = true;
             button2.Visible = true;
             comboBox3.Visible = true;
             comboBox2.Visible = true;
             comboBox1.Visible = true;
+            label1.Visible = true;
+
 
             // Ocultar otros componentes
             button8.Visible = false;
             button7.Visible = false;
-            label1.Visible = false;
+            label2.Visible = false;
+
 
             // Identificar y aplicar formato a las columnas con solo números
         }
@@ -960,5 +962,95 @@ namespace ManagerCont
             }
         }
 
+        private void gUARDARRANDOMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string label1Content = label1.Text.ToUpper(); // Obtener el contenido del label 1 y convertirlo a mayúsculas
+
+                if (label1Content.Contains("DATOS"))
+                {
+                    // Llamar a la función GuardarDatos con las longitudes específicas
+                    GuardarDatos(64, 60, 45, 15, 5, 25, 5, 6, 11);
+                }
+                else if (label1Content.Contains("CATAUX") || label1Content.Contains("CATMAY"))
+                {
+                    // Llamar a la función GuardarCats con las longitudes específicas
+                    GuardarCats(6, 32, 16, 5, 5);
+                    // Formatear y alinear la columna en el índice 2
+                }
+                else if (label1Content.StartsWith("SAC") || label1Content.StartsWith("COR") || label1Content.StartsWith("SUP"))
+                {
+                    // Determinar qué función llamar basado en el nombre del archivo sin extensión
+                    if (label1Content.StartsWith("SAC"))
+                    {
+                        // Llamar a la función GuardarOpers con las longitudes específicas para SAC
+                        GuardarOpers(6, 30, 2, 16, 1, 9);
+                    }
+                    else if (label1Content.StartsWith("COR"))
+                    {
+                        // Llamar a la función GuardarOpers con las longitudes específicas para COR
+                        GuardarOpers(6, 30, 2, 16, 1, 9);
+                    }
+                    else if (label1Content.StartsWith("SUP"))
+                    {
+                        // Llamar a la función GuardarOpers con las longitudes específicas para SUP
+                        GuardarOpers(6, 30, 2, 16, 1, 9);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nombre de archivo no reconocido para guardar datos.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nombre de archivo no reconocido para guardar datos.", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar los datos: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void gUARDARCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            saveFileDialog.Title = "Save as CSV file";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                StringBuilder csvContent = new StringBuilder();
+
+                // Adding the column headers
+                for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                {
+                    csvContent.Append(dataGridView1.Columns[i].HeaderText);
+                    if (i < dataGridView1.Columns.Count - 1)
+                        csvContent.Append(";");
+                }
+                csvContent.AppendLine();
+
+                // Adding the rows
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                    {
+                        csvContent.Append(row.Cells[i].Value?.ToString());
+                        if (i < dataGridView1.Columns.Count - 1)
+                            csvContent.Append(";");
+                    }
+                    csvContent.AppendLine();
+                }
+
+                // Writing to the file
+                File.WriteAllText(saveFileDialog.FileName, csvContent.ToString(), Encoding.UTF8);
+                MessageBox.Show("CSV file saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
