@@ -74,6 +74,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Files\CATAUX.csv" />
     <None Include="Files\CATMAY.csv" />
@@ -93,6 +94,11 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Files\CATAUX.xml" />
+    <None Include="Source\lupappa %281%29.png" />
+    <None Include="Source\lupa %282%29.png" />
+    <None Include="Source\flecha-correcta %282%29.png" />
+    <None Include="Source\lupa %281%29.png" />
+    <None Include="Source\lupa.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

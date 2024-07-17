@@ -12,6 +12,9 @@ namespace ManagerCont
 {
     public partial class Form1 : Form
     {
+
+        private List<DataGridViewCell> searchResults = new List<DataGridViewCell>();
+        private int currentSearchIndex = -1;
         public Form1()
         {
             InitializeComponent();
@@ -62,6 +65,9 @@ namespace ManagerCont
             comboBox3.Visible = false;
             comboBox2.Visible = false;
             comboBox1.Visible = false;
+
+
+
         }
 
         private void rANDOMToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1052,6 +1058,65 @@ namespace ManagerCont
                 File.WriteAllText(saveFileDialog.FileName, csvContent.ToString(), Encoding.UTF8);
                 MessageBox.Show("CSV file saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string searchText = textBox1.Text;
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                MessageBox.Show("Por favor, ingresa el texto a buscar.");
+                return;
+            }
+
+            searchResults.Clear();
+            currentSearchIndex = -1;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().IndexOf(searchText, StringComparison.Ordinal) >= 0)
+                    {
+                        searchResults.Add(cell);
+                    }
+                }
+            }
+
+            if (searchResults.Count == 0)
+            {
+                MessageBox.Show("No se encontraron coincidencias.");
+            }
+            else
+            {
+                currentSearchIndex = 0;
+                HighlightCurrentSearchResult();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (searchResults.Count == 0)
+            {
+                MessageBox.Show("No hay coincidencias para navegar.");
+                return;
+            }
+
+            currentSearchIndex++;
+            if (currentSearchIndex >= searchResults.Count)
+            {
+                currentSearchIndex = 0; // Volver al primer resultado
+            }
+
+            HighlightCurrentSearchResult();
+        }
+
+        private void HighlightCurrentSearchResult()
+        {
+            DataGridViewCell cell = searchResults[currentSearchIndex];
+            dataGridView1.ClearSelection();
+            cell.Selected = true;
+            dataGridView1.CurrentCell = cell;
+            dataGridView1.FirstDisplayedScrollingRowIndex = cell.RowIndex;
         }
     }
 }
