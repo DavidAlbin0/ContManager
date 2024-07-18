@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -291,7 +292,6 @@ namespace ManagerCont
 
         }
 
-        // Método para interpretar una línea de texto según la estructura y cargar en el DataGridView
         private void InterpretarYMostrarOperaciones(string linea)
         {
             try
@@ -308,7 +308,10 @@ namespace ManagerCont
                 dataGridView1.Columns.Add("indenti", "indenti");
                 dataGridView1.Columns.Add("real", "real");
 
+                Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                dataGridView1.DefaultCellStyle.Font = newFont;
                 int index = 0;
+                int expectedNumber = 1; // Número ascendente esperado
                 while (index + 64 <= linea.Length)
                 {
                     // Interpretar cada campo según los índices especificados
@@ -320,19 +323,26 @@ namespace ManagerCont
                     string real = linea.Substring(index + 55, 9).Trim().PadRight(9);
 
                     // Agregar fila al DataGridView
-                    dataGridView1.Rows.Add(CTA, descr, fe, impte, indenti, real);
+                    int rowIndex = dataGridView1.Rows.Add(CTA, descr, fe, impte, indenti, real);
+
+                    // Comprobar si el valor en CTA es el número ascendente esperado
+                    if (int.TryParse(CTA.Trim(), out int ctaNumber) && ctaNumber == expectedNumber)
+                    {
+                        dataGridView1.Rows[rowIndex].Cells["CTA"].Style.BackColor = Color.Yellow;
+                        expectedNumber++; // Incrementar el número esperado
+                    }
 
                     // Avanzar al siguiente conjunto de datos
                     index += 64;
                 }
                 dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al interpretar y mostrar los datos: " + ex.Message);
             }
         }
+
 
         private void InterpretarYMostrarCatmay(string linea)
         {
@@ -349,6 +359,8 @@ namespace ManagerCont
                 dataGridView1.Columns.Add("Rango_Inf", "Rango_Inf");
                 dataGridView1.Columns.Add("Rango_Sup", "Rango_Sup");
 
+                Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                dataGridView1.DefaultCellStyle.Font = newFont;
                 int index = 0;
                 while (index + 64 <= linea.Length)
                 {
@@ -395,6 +407,8 @@ namespace ManagerCont
                 dataGridView1.Columns.Add("others", "others");
 
 
+                Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                dataGridView1.DefaultCellStyle.Font = newFont;
                 int index = 0;
                 while (index + 236 <= linea.Length)
                 {
@@ -438,6 +452,8 @@ namespace ManagerCont
                 dataGridView1.Columns.Add("Rango_Inf", "Rango_Inf");
                 dataGridView1.Columns.Add("Rango_Sup", "Rango_Sup");
 
+                Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                dataGridView1.DefaultCellStyle.Font = newFont;
                 int index = 0;
                 while (index + 64 <= linea.Length)
                 {
@@ -561,7 +577,8 @@ namespace ManagerCont
                             sb.Append(line); // Usar Append en lugar de AppendLine para evitar saltos de línea adicionales
                         }
                     }
-
+                    Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                    dataGridView1.DefaultCellStyle.Font = newFont;
                     // Escribir el contenido del StringBuilder en el archivo de texto
                     File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
 
