@@ -66,6 +66,10 @@ namespace ManagerCont
             comboBox3.Visible = false;
             comboBox2.Visible = false;
             comboBox1.Visible = false;
+            button4.Visible = false;
+            button5.Visible = false;
+            textBox1.Visible = false;
+
 
 
 
@@ -81,6 +85,9 @@ namespace ManagerCont
             button7.Visible = true;
             label1.Visible = true;
             button1.Visible = true;
+            button4.Visible = true;
+            button5.Visible = true;
+            textBox1.Visible = true;
 
 
             // Ocultar otros componentes
@@ -106,7 +113,9 @@ namespace ManagerCont
             comboBox2.Visible = true;
             comboBox1.Visible = true;
             button3.Visible = true;
-
+            button4.Visible = true;
+            button5.Visible = true;
+            textBox1.Visible = true;
 
             // Ocultar otros componentes
             button1.Visible = false;
@@ -1134,6 +1143,11 @@ namespace ManagerCont
             cell.Selected = true;
             dataGridView1.CurrentCell = cell;
             dataGridView1.FirstDisplayedScrollingRowIndex = cell.RowIndex;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
