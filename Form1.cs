@@ -508,7 +508,7 @@ namespace ManagerCont
                     label1.Text = fileNameWithoutExtension;
 
                     // Leer la línea completa del archivo
-                    string lineaCompleta = File.ReadAllText(filePath, Encoding.UTF8);
+                    string lineaCompleta = File.ReadAllText(filePath);
 
                     // Aquí debe de llevar una instrucción dependiendo el label
                     if (fileNameWithoutExtension.StartsWith("CATMAY", StringComparison.OrdinalIgnoreCase))
@@ -589,7 +589,7 @@ namespace ManagerCont
                     Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                     dataGridView1.DefaultCellStyle.Font = newFont;
                     // Escribir el contenido del StringBuilder en el archivo de texto
-                    File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
+                    File.WriteAllText(filePath, sb.ToString());
 
                     MessageBox.Show("Datos guardados correctamente en: " + filePath, "Guardar datos",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -643,7 +643,7 @@ namespace ManagerCont
                     }
 
                     // Escribir el contenido del StringBuilder en el archivo de texto
-                    File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
+                    File.WriteAllText(filePath, sb.ToString());
 
                     MessageBox.Show("Datos CATMAY guardados correctamente en: " + filePath, "Guardar datos",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -697,7 +697,7 @@ namespace ManagerCont
                     }
 
                     // Escribir el contenido del StringBuilder en el archivo de texto
-                    File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
+                    File.WriteAllText(filePath, sb.ToString());
 
                     MessageBox.Show("Datos guardados correctamente en: " + filePath, "Guardar datos",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1081,7 +1081,7 @@ namespace ManagerCont
                 }
 
                 // Writing to the file
-                File.WriteAllText(saveFileDialog.FileName, csvContent.ToString(), Encoding.UTF8);
+                File.WriteAllText(saveFileDialog.FileName, csvContent.ToString());
                 MessageBox.Show("CSV file saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
