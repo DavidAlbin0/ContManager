@@ -94,6 +94,8 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Files\CATAUX.xml" />
+    <None Include="Source\copiar %282%29.png" />
+    <None Include="Source\copiar.png" />
     <None Include="Source\lupappa %281%29.png" />
     <None Include="Source\lupa %282%29.png" />
     <None Include="Source\flecha-correcta %282%29.png" />

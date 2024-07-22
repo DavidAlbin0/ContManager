@@ -56,9 +56,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -70,7 +71,7 @@
             this.dataGridView1.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 159);
+            this.dataGridView1.Location = new System.Drawing.Point(900, 170);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -124,7 +125,7 @@
             // button7
             // 
             this.button7.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button7.Location = new System.Drawing.Point(1484, 63);
+            this.button7.Location = new System.Drawing.Point(1475, 63);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(125, 44);
             this.button7.TabIndex = 7;
@@ -135,7 +136,7 @@
             // 
             this.button8.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button8.Location = new System.Drawing.Point(1615, 63);
+            this.button8.Location = new System.Drawing.Point(1606, 63);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(168, 44);
             this.button8.TabIndex = 8;
@@ -217,7 +218,7 @@
             this.gUARDARToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1795, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1795, 30);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -227,7 +228,7 @@
             this.rANDOMToolStripMenuItem1,
             this.cSVToolStripMenuItem1});
             this.aRCHIVOToolStripMenuItem.Name = "aRCHIVOToolStripMenuItem";
-            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
+            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 26);
             this.aRCHIVOToolStripMenuItem.Text = "ARCHIVO";
             // 
             // rANDOMToolStripMenuItem1
@@ -250,7 +251,7 @@
             this.gUARDARRANDOMToolStripMenuItem,
             this.gUARDARCSVToolStripMenuItem});
             this.gUARDARToolStripMenuItem.Name = "gUARDARToolStripMenuItem";
-            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
+            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 26);
             this.gUARDARToolStripMenuItem.Text = "GUARDAR";
             // 
             // gUARDARRANDOMToolStripMenuItem
@@ -296,6 +297,32 @@
             this.textBox1.Size = new System.Drawing.Size(209, 22);
             this.textBox1.TabIndex = 18;
             // 
+            // dataGridView2
+            // 
+            this.dataGridView2.BackgroundColor = System.Drawing.Color.AliceBlue;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.GridColor = System.Drawing.SystemColors.ControlText;
+            this.dataGridView2.Location = new System.Drawing.Point(12, 170);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.RowHeadersWidth = 51;
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(862, 674);
+            this.dataGridView2.TabIndex = 21;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button6.BackgroundImage = global::ManagerCont.Properties.Resources.copiar__2_;
+            this.button6.Location = new System.Drawing.Point(867, 123);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(41, 41);
+            this.button6.TabIndex = 22;
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.UseWaitCursor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // button5
             // 
             this.button5.Image = global::ManagerCont.Properties.Resources.flecha_correcta__2_;
@@ -316,24 +343,13 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // dataGridView2
-            // 
-            this.dataGridView2.BackgroundColor = System.Drawing.Color.AliceBlue;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.GridColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridView2.Location = new System.Drawing.Point(939, 159);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(844, 674);
-            this.dataGridView2.TabIndex = 21;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1795, 856);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -396,6 +412,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button button6;
     }
 }
 

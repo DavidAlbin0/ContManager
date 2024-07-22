@@ -16,6 +16,7 @@ namespace ManagerCont
 
         private List<DataGridViewCell> searchResults = new List<DataGridViewCell>();
         private int currentSearchIndex = -1;
+
         public Form1()
         {
             InitializeComponent();
@@ -72,6 +73,8 @@ namespace ManagerCont
             dataGridView2.Visible = false;
 
 
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            dataGridView1.KeyDown += new KeyEventHandler(dataGridView1_KeyDown);
 
 
 
@@ -1156,5 +1159,106 @@ namespace ManagerCont
         {
 
         }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // Limpiar dataGridView1 antes de copiar las filas de dataGridView2
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+
+            // Copiar las columnas de dataGridView2 a dataGridView1
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                dataGridView2.Columns.Add((DataGridViewColumn)column.Clone());
+            }
+
+            // Iterar sobre cada fila en dataGridView2
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                // Verificar que la fila no sea una fila nueva vacía
+                if (!row.IsNewRow)
+                {
+                    // Crear una nueva fila para dataGridView1
+                    DataGridViewRow newRow = new DataGridViewRow();
+                    newRow.CreateCells(dataGridView2);
+
+                    // Copiar los valores de las celdas de la fila original a la nueva fila
+                    for (int i = 0; i < row.Cells.Count; i++)
+                    {
+                        newRow.Cells[i].Value = row.Cells[i].Value;
+                    }
+                    foreach (DataGridViewColumn column in dataGridView1.Columns)
+                    {
+                        column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                    }
+
+                    // Agregar la nueva fila a dataGridView1
+                    dataGridView2.Rows.Add(newRow);
+                    Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                    dataGridView2.DefaultCellStyle.Font = newFont;
+
+                }
+            }
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                CopyToClipboard();
+            }
+            if (e.Control && e.KeyCode == Keys.V)
+            {
+                PasteFromClipboard();
+            }
+        }
+
+        private void CopyToClipboard()
+        {
+            DataObject dataObj = dataGridView1.GetClipboardContent();
+            if (dataObj != null)
+            {
+                Clipboard.SetDataObject(dataObj);
+            }
+        }
+
+        // Método para pegar datos desde el portapapeles a las celdas seleccionadas
+        private void PasteFromClipboard()
+        {
+            string s = Clipboard.GetText();
+            string[] lines = s.Split('\n');
+
+            int row = dataGridView1.CurrentCell.RowIndex;
+            int col = dataGridView1.CurrentCell.ColumnIndex;
+
+            foreach (string line in lines)
+            {
+                if (row < dataGridView1.RowCount && line.Length > 0)
+                {
+                    string[] cells = line.Split('\t');
+                    for (int i = 0; i < cells.Length; ++i)
+                    {
+                        if (col + i < dataGridView1.ColumnCount)
+                        {
+                            dataGridView1[col + i, row].Value = Convert.ChangeType(cells[i], dataGridView1[col + i, row].ValueType);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    row++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
     }
 }
