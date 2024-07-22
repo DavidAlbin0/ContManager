@@ -58,27 +58,29 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.DarkGray;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridView1.Location = new System.Drawing.Point(30, 159);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 159);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1239, 674);
+            this.dataGridView1.Size = new System.Drawing.Size(883, 674);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // comboBox1
             // 
-            this.comboBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.comboBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(30, 66);
             this.comboBox1.Name = "comboBox1";
@@ -89,7 +91,7 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.Control;
+            this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button2.Location = new System.Drawing.Point(667, 63);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(126, 27);
@@ -100,7 +102,7 @@
             // 
             // comboBox2
             // 
-            this.comboBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.comboBox2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(240, 66);
             this.comboBox2.Name = "comboBox2";
@@ -111,7 +113,7 @@
             // 
             // comboBox3
             // 
-            this.comboBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.comboBox3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(383, 66);
             this.comboBox3.Name = "comboBox3";
@@ -121,8 +123,8 @@
             // 
             // button7
             // 
-            this.button7.BackColor = System.Drawing.SystemColors.Control;
-            this.button7.Location = new System.Drawing.Point(970, 55);
+            this.button7.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button7.Location = new System.Drawing.Point(1484, 63);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(125, 44);
             this.button7.TabIndex = 7;
@@ -131,9 +133,9 @@
             // 
             // button8
             // 
-            this.button8.BackColor = System.Drawing.SystemColors.Control;
+            this.button8.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button8.Location = new System.Drawing.Point(1101, 55);
+            this.button8.Location = new System.Drawing.Point(1615, 63);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(168, 44);
             this.button8.TabIndex = 8;
@@ -145,7 +147,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1148, 118);
+            this.label1.Location = new System.Drawing.Point(1639, 120);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 27);
             this.label1.TabIndex = 9;
@@ -203,20 +205,19 @@
             // 
             // toolStripComboBox1
             // 
-            this.toolStripComboBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 28);
             // 
             // menuStrip1
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Gainsboro;
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aRCHIVOToolStripMenuItem,
             this.gUARDARToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1298, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1795, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -268,8 +269,8 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(846, 55);
+            this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button1.Location = new System.Drawing.Point(1351, 63);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 44);
             this.button1.TabIndex = 16;
@@ -279,7 +280,7 @@
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.Control;
+            this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button3.Location = new System.Drawing.Point(525, 63);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(126, 27);
@@ -290,7 +291,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(846, 122);
+            this.textBox1.Location = new System.Drawing.Point(1351, 123);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(209, 22);
             this.textBox1.TabIndex = 18;
@@ -298,7 +299,7 @@
             // button5
             // 
             this.button5.Image = global::ManagerCont.Properties.Resources.flecha_correcta__2_;
-            this.button5.Location = new System.Drawing.Point(1091, 121);
+            this.button5.Location = new System.Drawing.Point(1592, 122);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(41, 24);
             this.button5.TabIndex = 20;
@@ -308,19 +309,32 @@
             // button4
             // 
             this.button4.BackgroundImage = global::ManagerCont.Properties.Resources.lupappa__1_;
-            this.button4.Location = new System.Drawing.Point(1054, 120);
+            this.button4.Location = new System.Drawing.Point(1555, 120);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(31, 27);
             this.button4.TabIndex = 19;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // dataGridView2
+            // 
+            this.dataGridView2.BackgroundColor = System.Drawing.Color.AliceBlue;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.GridColor = System.Drawing.SystemColors.ControlText;
+            this.dataGridView2.Location = new System.Drawing.Point(939, 159);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 51;
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(844, 674);
+            this.dataGridView2.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1298, 856);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(1795, 856);
+            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox1);
@@ -345,6 +359,7 @@
             this.contextMenuStrip4.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -380,6 +395,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.DataGridView dataGridView2;
     }
 }
 

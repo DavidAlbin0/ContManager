@@ -69,6 +69,8 @@ namespace ManagerCont
             button4.Visible = false;
             button5.Visible = false;
             textBox1.Visible = false;
+            dataGridView2.Visible = false;
+
 
 
 
@@ -88,6 +90,8 @@ namespace ManagerCont
             button4.Visible = true;
             button5.Visible = true;
             textBox1.Visible = true;
+            dataGridView2.Visible = true;
+
 
 
             // Ocultar otros componentes
@@ -116,6 +120,8 @@ namespace ManagerCont
             button4.Visible = true;
             button5.Visible = true;
             textBox1.Visible = true;
+            dataGridView2.Visible = true;
+
 
             // Ocultar otros componentes
             button1.Visible = false;
@@ -721,6 +727,7 @@ namespace ManagerCont
             button8.Visible = true;
             button7.Visible = true;
             label1.Visible = true;
+
 
             // Ocultar otros componentes
             label2.Visible = false;
