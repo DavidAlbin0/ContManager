@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using ManagerCont;
 
 namespace ManagerCont
 {
@@ -16,10 +16,14 @@ namespace ManagerCont
 
         private List<DataGridViewCell> searchResults = new List<DataGridViewCell>();
         private int currentSearchIndex = -1;
+        private conexion _conexion;
 
         public Form1()
         {
             InitializeComponent();
+            _conexion = new conexion();
+            ProbarConexion();
+
             comboBox1.Items.Add("Seleccione un archivo");
             comboBox1.Items.Add("CATAUX");
             comboBox1.Items.Add("CATMAY");
@@ -71,6 +75,8 @@ namespace ManagerCont
             button5.Visible = false;
             textBox1.Visible = false;
             dataGridView2.Visible = false;
+            button6.Visible = false;
+            button9.Visible = false;
 
 
             this.button6.Click += new System.EventHandler(this.button6_Click);
@@ -79,8 +85,8 @@ namespace ManagerCont
 
 
         }
-
-        private void rANDOMToolStripMenuItem1_Click(object sender, EventArgs e)
+      
+    private void rANDOMToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
 
@@ -88,6 +94,7 @@ namespace ManagerCont
             dataGridView1.Visible = true;
             button8.Visible = true;
             button7.Visible = true;
+            button6.Visible = true;
             label1.Visible = true;
             button1.Visible = true;
             button4.Visible = true;
@@ -119,6 +126,7 @@ namespace ManagerCont
             comboBox3.Visible = true;
             comboBox2.Visible = true;
             comboBox1.Visible = true;
+            button6.Visible = true;
             button3.Visible = true;
             button4.Visible = true;
             button5.Visible = true;
@@ -134,6 +142,17 @@ namespace ManagerCont
         }
 
 
+        private void ProbarConexion()
+        {
+            try
+            {
+                _conexion.TestConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al conectar a la base de datos: " + ex.Message);
+            }
+        }
 
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -319,15 +338,32 @@ namespace ManagerCont
                 dataGridView1.Columns.Clear();
 
                 // Configurar columnas del DataGridView
-                dataGridView1.Columns.Add("CTA", "CTA");
-                dataGridView1.Columns.Add("descr", "descr");
-                dataGridView1.Columns.Add("fe", "fe");
-                dataGridView1.Columns.Add("impte", "impte");
-                dataGridView1.Columns.Add("indenti", "indenti");
-                dataGridView1.Columns.Add("real", "real");
+                DataGridViewColumn ctaColumn = new DataGridViewTextBoxColumn { Name = "CTA", HeaderText = "CTA" };
+                DataGridViewColumn descrColumn = new DataGridViewTextBoxColumn { Name = "descr", HeaderText = "descr" };
+                DataGridViewColumn feColumn = new DataGridViewTextBoxColumn { Name = "fe", HeaderText = "fe" };
+                DataGridViewColumn impteColumn = new DataGridViewTextBoxColumn { Name = "impte", HeaderText = "impte" };
+                DataGridViewColumn indentiColumn = new DataGridViewTextBoxColumn { Name = "indenti", HeaderText = "indenti" };
+                DataGridViewColumn realColumn = new DataGridViewTextBoxColumn { Name = "real", HeaderText = "real" };
+
+                // Configurar todas las columnas para que no sean ordenables
+                ctaColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                descrColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                feColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                impteColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                indentiColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                realColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                // Agregar columnas al DataGridView
+                dataGridView1.Columns.Add(ctaColumn);
+                dataGridView1.Columns.Add(descrColumn);
+                dataGridView1.Columns.Add(feColumn);
+                dataGridView1.Columns.Add(impteColumn);
+                dataGridView1.Columns.Add(indentiColumn);
+                dataGridView1.Columns.Add(realColumn);
 
                 Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                 dataGridView1.DefaultCellStyle.Font = newFont;
+
                 int index = 0;
                 int expectedNumber = 1; // Número ascendente esperado
                 while (index + 64 <= linea.Length)
@@ -353,14 +389,24 @@ namespace ManagerCont
                     // Avanzar al siguiente conjunto de datos
                     index += 64;
                 }
+
+                // Ajustar automáticamente el tamaño de las columnas
                 dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+                // Asignar números crecientes al encabezado de filas
+                for (int u = 0; u < dataGridView1.Rows.Count; u++)
+                {
+                    dataGridView1.Rows[u].HeaderCell.Value = (u + 1).ToString();
+                }
+
+                // Ajustar el ancho del encabezado de fila para que se muestre correctamente
+                dataGridView1.RowHeadersWidth = 65;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al interpretar y mostrar los datos: " + ex.Message);
             }
         }
-
 
         private void InterpretarYMostrarCatmay(string linea)
         {
@@ -371,14 +417,29 @@ namespace ManagerCont
                 dataGridView1.Columns.Clear();
 
                 // Configurar columnas del DataGridView
-                dataGridView1.Columns.Add("Cuenta", "Cuenta");
-                dataGridView1.Columns.Add("Nombre", "Nombre");
-                dataGridView1.Columns.Add("Saldo", "Saldo");
-                dataGridView1.Columns.Add("Rango_Inf", "Rango_Inf");
-                dataGridView1.Columns.Add("Rango_Sup", "Rango_Sup");
+                DataGridViewColumn cuentaColumn = new DataGridViewTextBoxColumn { Name = "Cuenta", HeaderText = "Cuenta" };
+                DataGridViewColumn nombreColumn = new DataGridViewTextBoxColumn { Name = "Nombre", HeaderText = "Nombre" };
+                DataGridViewColumn saldoColumn = new DataGridViewTextBoxColumn { Name = "Saldo", HeaderText = "Saldo" };
+                DataGridViewColumn rangoInfColumn = new DataGridViewTextBoxColumn { Name = "Rango_Inf", HeaderText = "Rango_Inf" };
+                DataGridViewColumn rangoSupColumn = new DataGridViewTextBoxColumn { Name = "Rango_Sup", HeaderText = "Rango_Sup" };
+
+                // Configurar todas las columnas para que no sean ordenables
+                cuentaColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                nombreColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                saldoColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                rangoInfColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                rangoSupColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                // Agregar columnas al DataGridView
+                dataGridView1.Columns.Add(cuentaColumn);
+                dataGridView1.Columns.Add(nombreColumn);
+                dataGridView1.Columns.Add(saldoColumn);
+                dataGridView1.Columns.Add(rangoInfColumn);
+                dataGridView1.Columns.Add(rangoSupColumn);
 
                 Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                 dataGridView1.DefaultCellStyle.Font = newFont;
+
                 int index = 0;
                 while (index + 64 <= linea.Length)
                 {
@@ -395,8 +456,18 @@ namespace ManagerCont
                     // Avanzar al siguiente conjunto de datos
                     index += 64;
                 }
+
+                // Ajustar automáticamente el tamaño de las columnas
                 dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
+                // Asignar números crecientes al encabezado de filas
+                for (int u = 0; u < dataGridView1.Rows.Count; u++)
+                {
+                    dataGridView1.Rows[u].HeaderCell.Value = (u + 1).ToString();
+                }
+
+                // Ajustar el ancho del encabezado de fila para que se muestre correctamente
+                dataGridView1.RowHeadersWidth = 65;
             }
             catch (Exception ex)
             {
@@ -414,19 +485,41 @@ namespace ManagerCont
                 dataGridView1.Columns.Clear();
 
                 // Configurar columnas del DataGridView
-                dataGridView1.Columns.Add("D1", "D1");
-                dataGridView1.Columns.Add("D2", "D2");
-                dataGridView1.Columns.Add("D3", "D3");
-                dataGridView1.Columns.Add("No_arch", "No_arch");
-                dataGridView1.Columns.Add("a_o", "a_o");
-                dataGridView1.Columns.Add("others1", "others1");
-                dataGridView1.Columns.Add("ultimaPol1", "ultimaPol1");
-                dataGridView1.Columns.Add("ultimaOperacionReg", "ultimaOperacionReg");
-                dataGridView1.Columns.Add("others", "others");
+                DataGridViewColumn d1Column = new DataGridViewTextBoxColumn { Name = "D1", HeaderText = "D1" };
+                DataGridViewColumn d2Column = new DataGridViewTextBoxColumn { Name = "D2", HeaderText = "D2" };
+                DataGridViewColumn d3Column = new DataGridViewTextBoxColumn { Name = "D3", HeaderText = "D3" };
+                DataGridViewColumn noArchColumn = new DataGridViewTextBoxColumn { Name = "No_arch", HeaderText = "No_arch" };
+                DataGridViewColumn aoColumn = new DataGridViewTextBoxColumn { Name = "a_o", HeaderText = "a_o" };
+                DataGridViewColumn others1Column = new DataGridViewTextBoxColumn { Name = "others1", HeaderText = "others1" };
+                DataGridViewColumn ultimaPol1Column = new DataGridViewTextBoxColumn { Name = "ultimaPol1", HeaderText = "ultimaPol1" };
+                DataGridViewColumn ultimaOperacionRegColumn = new DataGridViewTextBoxColumn { Name = "ultimaOperacionReg", HeaderText = "ultimaOperacionReg" };
+                DataGridViewColumn othersColumn = new DataGridViewTextBoxColumn { Name = "others", HeaderText = "others" };
 
+                // Configurar todas las columnas para que no sean ordenables
+                d1Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                d2Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                d3Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                noArchColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                aoColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                others1Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                ultimaPol1Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                ultimaOperacionRegColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                othersColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                // Agregar columnas al DataGridView
+                dataGridView1.Columns.Add(d1Column);
+                dataGridView1.Columns.Add(d2Column);
+                dataGridView1.Columns.Add(d3Column);
+                dataGridView1.Columns.Add(noArchColumn);
+                dataGridView1.Columns.Add(aoColumn);
+                dataGridView1.Columns.Add(others1Column);
+                dataGridView1.Columns.Add(ultimaPol1Column);
+                dataGridView1.Columns.Add(ultimaOperacionRegColumn);
+                dataGridView1.Columns.Add(othersColumn);
 
                 Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                 dataGridView1.DefaultCellStyle.Font = newFont;
+
                 int index = 0;
                 while (index + 236 <= linea.Length)
                 {
@@ -438,17 +531,22 @@ namespace ManagerCont
                     string a_o = linea.Substring(index + 184, 5).Trim().PadRight(5);
                     string Others1 = linea.Substring(index + 189, 25).Trim().PadRight(25);
                     string ultimaPol1 = linea.Substring(index + 214, 5).Trim().PadRight(5);
-                    string ultimoReg = linea.Substring(index + 219, 6).Trim().PadRight(6);
+                    string ultimaOperacionReg = linea.Substring(index + 219, 6).Trim().PadRight(6);
                     string others = linea.Substring(index + 225, 11).Trim().PadRight(11);
 
-
                     // Agregar fila al DataGridView
-                    dataGridView1.Rows.Add(D1, D2, D3, No_arch, a_o, Others1, ultimaPol1, ultimoReg, others);
+                    dataGridView1.Rows.Add(D1, D2, D3, No_arch, a_o, Others1, ultimaPol1, ultimaOperacionReg, others);
 
                     // Avanzar al siguiente conjunto de datos
                     index += 236;
                 }
+
                 dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+                for (int u = 0; u < dataGridView1.Rows.Count; u++)
+                {
+                    dataGridView1.Rows[u].HeaderCell.Value = (u + 1).ToString();
+                }
             }
             catch (Exception ex)
             {
@@ -464,14 +562,29 @@ namespace ManagerCont
                 dataGridView1.Columns.Clear();
 
                 // Configurar columnas del DataGridView
-                dataGridView1.Columns.Add("Cuenta", "Cuenta");
-                dataGridView1.Columns.Add("Nombre", "Nombre");
-                dataGridView1.Columns.Add("Saldo", "Saldo");
-                dataGridView1.Columns.Add("Rango_Inf", "Rango_Inf");
-                dataGridView1.Columns.Add("Rango_Sup", "Rango_Sup");
+                DataGridViewColumn cuentaColumn = new DataGridViewTextBoxColumn { Name = "Cuenta", HeaderText = "Cuenta" };
+                DataGridViewColumn nombreColumn = new DataGridViewTextBoxColumn { Name = "Nombre", HeaderText = "Nombre" };
+                DataGridViewColumn saldoColumn = new DataGridViewTextBoxColumn { Name = "Saldo", HeaderText = "Saldo" };
+                DataGridViewColumn rangoInfColumn = new DataGridViewTextBoxColumn { Name = "Rango_Inf", HeaderText = "Rango_Inf" };
+                DataGridViewColumn rangoSupColumn = new DataGridViewTextBoxColumn { Name = "Rango_Sup", HeaderText = "Rango_Sup" };
+
+                // Configurar todas las columnas para que no sean ordenables
+                cuentaColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                nombreColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                saldoColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                rangoInfColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                rangoSupColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                // Agregar columnas al DataGridView
+                dataGridView1.Columns.Add(cuentaColumn);
+                dataGridView1.Columns.Add(nombreColumn);
+                dataGridView1.Columns.Add(saldoColumn);
+                dataGridView1.Columns.Add(rangoInfColumn);
+                dataGridView1.Columns.Add(rangoSupColumn);
 
                 Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                 dataGridView1.DefaultCellStyle.Font = newFont;
+
                 int index = 0;
                 while (index + 64 <= linea.Length)
                 {
@@ -488,8 +601,18 @@ namespace ManagerCont
                     // Avanzar al siguiente conjunto de datos
                     index += 64;
                 }
+
+                // Ajustar automáticamente el tamaño de las columnas
                 dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
+                // Asignar números crecientes al encabezado de filas
+                for (int u = 0; u < dataGridView1.Rows.Count; u++)
+                {
+                    dataGridView1.Rows[u].HeaderCell.Value = (u + 1).ToString();
+                }
+
+                // Ajustar el ancho del encabezado de fila para que se muestre correctamente
+                dataGridView1.RowHeadersWidth = 65;
             }
             catch (Exception ex)
             {
@@ -566,8 +689,8 @@ namespace ManagerCont
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
-                saveFileDialog1.Title = "Guardar datos en archivo de texto";
-                saveFileDialog1.FileName = "datos_guardados"; // Nombre base del archivo
+                saveFileDialog1.Title = "Guardar datoS";
+                saveFileDialog1.FileName = "OPER"; // Nombre base del archivo
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -1164,6 +1287,8 @@ namespace ManagerCont
         {
 
         }
+
+        //Boton para copiar el datagrid
         private void button6_Click(object sender, EventArgs e)
         {
             // Limpiar dataGridView1 antes de copiar las filas de dataGridView2
@@ -1260,5 +1385,9 @@ namespace ManagerCont
             }
         }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
+            ProcesarDatos();
+        }
     }
 }

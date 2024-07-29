@@ -60,6 +60,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -206,6 +207,7 @@
             // 
             // toolStripComboBox1
             // 
+            this.toolStripComboBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 28);
             // 
@@ -218,7 +220,7 @@
             this.gUARDARToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1795, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1795, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -228,7 +230,7 @@
             this.rANDOMToolStripMenuItem1,
             this.cSVToolStripMenuItem1});
             this.aRCHIVOToolStripMenuItem.Name = "aRCHIVOToolStripMenuItem";
-            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 26);
+            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
             this.aRCHIVOToolStripMenuItem.Text = "ARCHIVO";
             // 
             // rANDOMToolStripMenuItem1
@@ -251,7 +253,7 @@
             this.gUARDARRANDOMToolStripMenuItem,
             this.gUARDARCSVToolStripMenuItem});
             this.gUARDARToolStripMenuItem.Name = "gUARDARToolStripMenuItem";
-            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 26);
+            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
             this.gUARDARToolStripMenuItem.Text = "GUARDAR";
             // 
             // gUARDARRANDOMToolStripMenuItem
@@ -343,12 +345,23 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(29, 831);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(117, 26);
+            this.button9.TabIndex = 23;
+            this.button9.Text = "ENVIAR";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1795, 856);
+            this.Controls.Add(this.button9);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.button5);
@@ -413,6 +426,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button9;
     }
 }
 
