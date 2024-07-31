@@ -662,13 +662,10 @@ namespace ManagerCont
                     else if (fileNameWithoutExtension.StartsWith("SAC", StringComparison.OrdinalIgnoreCase) ||
 
                              fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
-                             /*  fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
-                               fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
-                               fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
-                               fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
-                               fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
-                               fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
-                               fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||*/
+                             fileNameWithoutExtension.StartsWith("EPE", StringComparison.OrdinalIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("ING", StringComparison.OrdinalIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("CON", StringComparison.OrdinalIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("GEO", StringComparison.OrdinalIgnoreCase) ||
                              fileNameWithoutExtension.StartsWith("SUP", StringComparison.OrdinalIgnoreCase))
                     {
                         InterpretarYMostrarOperaciones(lineaCompleta);
