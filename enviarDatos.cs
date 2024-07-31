@@ -18,7 +18,7 @@ namespace ManagerCont
             // Utilizar switch para manejar diferentes casos basados en el valor de label1
             switch (labelValue)
             {
-               
+
                 case "CATMAY":
                     // Procesar datos de acuerdo con la estructura CATMAY
                     SubirCATMAY();
