@@ -106,7 +106,7 @@
             // 
             // comboBox3
             // 
-            this.comboBox3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.comboBox3.BackColor = System.Drawing.Color.White;
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(383, 66);
             this.comboBox3.Name = "comboBox3";
@@ -116,8 +116,8 @@
             // 
             // button7
             // 
-            this.button7.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button7.Location = new System.Drawing.Point(1475, 63);
+            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button7.Location = new System.Drawing.Point(1484, 63);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(125, 44);
             this.button7.TabIndex = 7;
@@ -126,9 +126,9 @@
             // 
             // button8
             // 
-            this.button8.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.button8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button8.Location = new System.Drawing.Point(1606, 63);
+            this.button8.Location = new System.Drawing.Point(1615, 63);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(168, 44);
             this.button8.TabIndex = 8;
@@ -140,7 +140,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1639, 120);
+            this.label1.Location = new System.Drawing.Point(1653, 122);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 27);
             this.label1.TabIndex = 9;
@@ -149,10 +149,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F);
-            this.label2.Location = new System.Drawing.Point(1639, 122);
+            this.label2.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(1653, 123);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 27);
+            this.label2.Size = new System.Drawing.Size(117, 26);
             this.label2.TabIndex = 10;
             this.label2.Text = "ARCHIVO";
             // 
@@ -212,7 +213,7 @@
             this.cAMBIARRUTAToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1795, 38);
+            this.menuStrip1.Size = new System.Drawing.Size(1795, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -222,7 +223,7 @@
             this.rANDOMToolStripMenuItem1,
             this.cSVToolStripMenuItem1});
             this.aRCHIVOToolStripMenuItem.Name = "aRCHIVOToolStripMenuItem";
-            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 34);
+            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
             this.aRCHIVOToolStripMenuItem.Text = "ARCHIVO";
             // 
             // rANDOMToolStripMenuItem1
@@ -245,7 +246,7 @@
             this.gUARDARRANDOMToolStripMenuItem,
             this.gUARDARCSVToolStripMenuItem});
             this.gUARDARToolStripMenuItem.Name = "gUARDARToolStripMenuItem";
-            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 34);
+            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
             this.gUARDARToolStripMenuItem.Text = "GUARDAR";
             // 
             // gUARDARRANDOMToolStripMenuItem
@@ -264,8 +265,8 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(1351, 63);
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button1.Location = new System.Drawing.Point(1360, 63);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 44);
             this.button1.TabIndex = 16;
@@ -275,10 +276,12 @@
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(523, 97);
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Location = new System.Drawing.Point(1219, 117);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(126, 27);
+            this.button3.Size = new System.Drawing.Size(126, 31);
             this.button3.TabIndex = 17;
             this.button3.Text = "Dar formato";
             this.button3.UseVisualStyleBackColor = false;
@@ -286,6 +289,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.LemonChiffon;
             this.textBox1.Location = new System.Drawing.Point(1351, 123);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(209, 22);
@@ -309,7 +313,7 @@
             // 
             this.button6.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button6.BackgroundImage = global::ManagerCont.Properties.Resources.copiar__2_;
-            this.button6.Location = new System.Drawing.Point(867, 123);
+            this.button6.Location = new System.Drawing.Point(867, 49);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(41, 41);
             this.button6.TabIndex = 22;
@@ -320,7 +324,7 @@
             // button5
             // 
             this.button5.Image = global::ManagerCont.Properties.Resources.flecha_correcta__2_;
-            this.button5.Location = new System.Drawing.Point(1592, 122);
+            this.button5.Location = new System.Drawing.Point(1606, 122);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(41, 24);
             this.button5.TabIndex = 20;
@@ -354,17 +358,17 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(25, 133);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(290, 31);
+            this.label3.Size = new System.Drawing.Size(0, 31);
             this.label3.TabIndex = 24;
-            this.label3.Text = "xxxxxxxxxxxxxxxxxxxxxx";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(523, 64);
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(1087, 117);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(126, 27);
+            this.button2.Size = new System.Drawing.Size(126, 31);
             this.button2.TabIndex = 3;
             this.button2.Text = "Actualizar datos";
             this.button2.UseVisualStyleBackColor = false;
@@ -373,7 +377,7 @@
             // cAMBIARRUTAToolStripMenuItem
             // 
             this.cAMBIARRUTAToolStripMenuItem.Name = "cAMBIARRUTAToolStripMenuItem";
-            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(127, 34);
+            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.cAMBIARRUTAToolStripMenuItem.Text = "CAMBIAR RUTA";
             this.cAMBIARRUTAToolStripMenuItem.Click += new System.EventHandler(this.cAMBIARRUTAToolStripMenuItem_Click);
             // 
@@ -382,7 +386,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1436, 684);
+            this.ClientSize = new System.Drawing.Size(1795, 856);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button6);

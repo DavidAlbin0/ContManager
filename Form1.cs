@@ -77,7 +77,7 @@ namespace ManagerCont
             dataGridView2.Visible = false;
             button6.Visible = false;
             button9.Visible = false;
-
+            label3.Visible = false;
 
             this.button6.Click += new System.EventHandler(this.button6_Click);
             dataGridView1.KeyDown += new KeyEventHandler(dataGridView1_KeyDown);
@@ -111,6 +111,8 @@ namespace ManagerCont
             comboBox3.Visible = false;
             comboBox2.Visible = false;
             comboBox1.Visible = false;
+            label3.Visible = false;
+
         }
 
         private void cSVToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -132,6 +134,8 @@ namespace ManagerCont
             button5.Visible = true;
             textBox1.Visible = true;
             dataGridView2.Visible = true;
+            label3.Visible = true;
+
 
 
             // Ocultar otros componentes
@@ -265,7 +269,7 @@ namespace ManagerCont
                 }
 
                 // Asignar el DataTable como origen de datos del DataGridView
-                dataGridView1.DataSource = dt;
+                dataGridView2.DataSource = dt;
             }
             catch (Exception ex)
             {
