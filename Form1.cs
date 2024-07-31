@@ -179,7 +179,7 @@ namespace ManagerCont
             try
             {
 
-                string archivosPath = @"C:\Users\david.albino\Desktop\CSVs\"; // Ruta literal al directorio donde están los archivos
+                string archivosPath =label3.Text; // Ruta literal al directorio donde están los archivos
                 string selectedFilePath = string.Empty;
 
                 switch (comboBox1.SelectedItem.ToString())
@@ -1389,5 +1389,30 @@ namespace ManagerCont
         {
             ProcesarDatos();
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cAMBIARRUTAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                // Configura el OpenFileDialog para seleccionar carpetas
+                openFileDialog.ValidateNames = false;
+                openFileDialog.CheckFileExists = false;
+                openFileDialog.CheckPathExists = true;
+                openFileDialog.FileName = "Seleccione una carpeta";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Obtiene la ruta seleccionada y la asigna al texto de label3
+                    string folderPath = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
+                    label3.Text = folderPath;
+                }
+            }
+        }
+
     }
 }

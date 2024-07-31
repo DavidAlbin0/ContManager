@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.button7 = new System.Windows.Forms.Button();
@@ -61,6 +60,9 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.cAMBIARRUTAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -90,17 +92,6 @@
             this.comboBox1.TabIndex = 1;
             this.comboBox1.Text = "Seleccione un archivo";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(667, 63);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(126, 27);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Actualizar datos";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // comboBox2
             // 
@@ -159,7 +150,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F);
-            this.label2.Location = new System.Drawing.Point(25, 118);
+            this.label2.Location = new System.Drawing.Point(1639, 122);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 27);
             this.label2.TabIndex = 10;
@@ -217,10 +208,11 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aRCHIVOToolStripMenuItem,
-            this.gUARDARToolStripMenuItem});
+            this.gUARDARToolStripMenuItem,
+            this.cAMBIARRUTAToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1795, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1795, 38);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -230,7 +222,7 @@
             this.rANDOMToolStripMenuItem1,
             this.cSVToolStripMenuItem1});
             this.aRCHIVOToolStripMenuItem.Name = "aRCHIVOToolStripMenuItem";
-            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
+            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 34);
             this.aRCHIVOToolStripMenuItem.Text = "ARCHIVO";
             // 
             // rANDOMToolStripMenuItem1
@@ -253,7 +245,7 @@
             this.gUARDARRANDOMToolStripMenuItem,
             this.gUARDARCSVToolStripMenuItem});
             this.gUARDARToolStripMenuItem.Name = "gUARDARToolStripMenuItem";
-            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
+            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 34);
             this.gUARDARToolStripMenuItem.Text = "GUARDAR";
             // 
             // gUARDARRANDOMToolStripMenuItem
@@ -284,7 +276,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(525, 63);
+            this.button3.Location = new System.Drawing.Point(523, 97);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(126, 27);
             this.button3.TabIndex = 17;
@@ -355,12 +347,43 @@
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(25, 133);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(290, 31);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "xxxxxxxxxxxxxxxxxxxxxx";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button2.Location = new System.Drawing.Point(523, 64);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(126, 27);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Actualizar datos";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // cAMBIARRUTAToolStripMenuItem
+            // 
+            this.cAMBIARRUTAToolStripMenuItem.Name = "cAMBIARRUTAToolStripMenuItem";
+            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(127, 34);
+            this.cAMBIARRUTAToolStripMenuItem.Text = "CAMBIAR RUTA";
+            this.cAMBIARRUTAToolStripMenuItem.Click += new System.EventHandler(this.cAMBIARRUTAToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1795, 856);
+            this.ClientSize = new System.Drawing.Size(1436, 684);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.dataGridView2);
@@ -398,7 +421,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Button button7;
@@ -427,6 +449,9 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem cAMBIARRUTAToolStripMenuItem;
     }
 }
 
