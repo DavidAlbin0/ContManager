@@ -60,22 +60,22 @@ namespace ManagerCont
             button7.Click += button7_Click; // Agregar manejador de evento para button7
 
             // Inicialmente ocultar todos los componentes que quieres controlar por menú
-            dataGridView1.Visible = false;
+            dataGridView1.Visible = true;
             button1.Visible = false;
             button3.Visible = false;
             button8.Visible = false;
-            button7.Visible = false;
+            button7.Visible = true;
             label1.Visible = false;
-            label2.Visible = false;
+            label2.Visible = true;
             button2.Visible = false;
             comboBox3.Visible = false;
             comboBox2.Visible = false;
             comboBox1.Visible = false;
-            button4.Visible = false;
-            button5.Visible = false;
-            textBox1.Visible = false;
-            dataGridView2.Visible = false;
-            button6.Visible = false;
+            button4.Visible = true;
+            button5.Visible = true;
+            textBox1.Visible = true;
+            dataGridView2.Visible = true;
+            button6.Visible = true;
             button9.Visible = false;
             label3.Visible = false;
 
@@ -83,10 +83,11 @@ namespace ManagerCont
             dataGridView1.KeyDown += new KeyEventHandler(dataGridView1_KeyDown);
 
 
-
         }
-      
-    private void rANDOMToolStripMenuItem1_Click(object sender, EventArgs e)
+
+
+
+        private void rANDOMToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
 
@@ -177,6 +178,7 @@ namespace ManagerCont
             // Habilitar comboBox1 si ambos comboBox2 y comboBox3 tienen una selección, de lo contrario, deshabilitarlo
             comboBox1.Enabled = comboBox2.SelectedIndex != -1 && comboBox3.SelectedIndex != -1;
         }
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

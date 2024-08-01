@@ -72,6 +72,7 @@
             // dataGridView1
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.Color.AliceBlue;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlText;
             this.dataGridView1.Location = new System.Drawing.Point(900, 170);
@@ -213,7 +214,7 @@
             this.cAMBIARRUTAToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1795, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1795, 38);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -223,7 +224,7 @@
             this.rANDOMToolStripMenuItem1,
             this.cSVToolStripMenuItem1});
             this.aRCHIVOToolStripMenuItem.Name = "aRCHIVOToolStripMenuItem";
-            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(73, 34);
             this.aRCHIVOToolStripMenuItem.Text = "Archivo";
             // 
             // rANDOMToolStripMenuItem1
@@ -246,7 +247,7 @@
             this.gUARDARRANDOMToolStripMenuItem,
             this.gUARDARCSVToolStripMenuItem});
             this.gUARDARToolStripMenuItem.Name = "gUARDARToolStripMenuItem";
-            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
+            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(76, 34);
             this.gUARDARToolStripMenuItem.Text = "Guardar";
             // 
             // gUARDARRANDOMToolStripMenuItem
@@ -266,7 +267,7 @@
             // cAMBIARRUTAToolStripMenuItem
             // 
             this.cAMBIARRUTAToolStripMenuItem.Name = "cAMBIARRUTAToolStripMenuItem";
-            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
+            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
             this.cAMBIARRUTAToolStripMenuItem.Text = "Cambiar Ruta";
             this.cAMBIARRUTAToolStripMenuItem.Click += new System.EventHandler(this.cAMBIARRUTAToolStripMenuItem_Click);
             // 
@@ -305,7 +306,8 @@
             // dataGridView2
             // 
             this.dataGridView2.BackgroundColor = System.Drawing.Color.AliceBlue;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridView2.ColumnHeadersHeight = 29;
             this.dataGridView2.GridColor = System.Drawing.SystemColors.ControlText;
             this.dataGridView2.Location = new System.Drawing.Point(12, 170);
             this.dataGridView2.Name = "dataGridView2";
@@ -386,7 +388,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1795, 856);
+            this.ClientSize = new System.Drawing.Size(1436, 684);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button6);
