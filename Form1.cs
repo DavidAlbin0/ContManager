@@ -92,11 +92,11 @@ namespace ManagerCont
 
             // Mostrar componentes para la opción "Random"
             dataGridView1.Visible = true;
-            button8.Visible = true;
+            button8.Visible = false;
             button7.Visible = true;
             button6.Visible = true;
             label1.Visible = true;
-            button1.Visible = true;
+            button1.Visible = false;
             button4.Visible = true;
             button5.Visible = true;
             textBox1.Visible = true;
@@ -674,6 +674,8 @@ namespace ManagerCont
                     {
                         MessageBox.Show("Archivo no reconocido.");
                     }
+                                button1_Click(sender, e);
+
                 }
             }
             catch (Exception ex)
@@ -851,9 +853,10 @@ namespace ManagerCont
 
             // Mostrar componentes para la opción "Random"
             dataGridView1.Visible = true;
-            button8.Visible = true;
+            button8.Visible = false;
             button7.Visible = true;
             label1.Visible = true;
+            button1.Visible = false;
 
 
             // Ocultar otros componentes
@@ -983,15 +986,94 @@ namespace ManagerCont
                 if (label1Value == "CATAUX" || label1Value == "CATMAY")
                 {
                     // Usar la columna "Saldo"
-                    if (!dataGridView1.Columns.Contains("Saldo"))
+                    if (!dataGridView2.Columns.Contains("Saldo"))
                     {
                         MessageBox.Show("La columna 'Saldo' no existe en el DataGridView.", "Error",
                                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    columnIndex = dataGridView1.Columns["Saldo"].Index;
+                    columnIndex = dataGridView2.Columns["Saldo"].Index;
                 }
                 else if (label1Value.StartsWith("SAC") || label1Value.StartsWith("COR") || label1Value.StartsWith("EPE"))
+                {
+                    // Usar la columna "impte"
+                    if (!dataGridView2.Columns.Contains("impte"))
+                    {
+                        MessageBox.Show("La columna 'impte' no existe en el DataGridView.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    columnIndex = dataGridView2.Columns["impte"].Index;
+                }
+                else
+                {
+                    MessageBox.Show("No se puede determinar la columna adecuada para el valor de label1: " + label1Value, "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Convertir los valores de la columna a tipo double y formatear
+                foreach (DataGridViewRow row in dataGridView2.Rows)
+                {
+                    if (row.Cells[columnIndex].Value != null)
+                    {
+                        string cellValue = row.Cells[columnIndex].Value.ToString().Trim();
+
+                        // Reemplazar solo las comas que no sean parte de números decimales
+                        if (cellValue.Contains(","))
+                        {
+                            // Comprobar si la coma es un separador decimal y no un separador de miles
+                            if (cellValue.Count(c => c == ',') == 1 && cellValue.IndexOf(',') == cellValue.Length - 3)
+                            {
+                                // Es un número decimal con coma, reemplazar comas por puntos
+                                cellValue = cellValue.Replace(",", ".");
+                            }
+                            else
+                            {
+                                // Es un número con separador de miles, eliminar comas
+                                cellValue = cellValue.Replace(",", "");
+                            }
+                        }
+
+                        if (double.TryParse(cellValue, NumberStyles.Number, CultureInfo.InvariantCulture, out double value))
+                        {
+                            row.Cells[columnIndex].Value = value;
+                        }
+                    }
+                }
+
+                // Aplicar el formato y alineación
+                dataGridView2.Columns[columnIndex].DefaultCellStyle.Format = "#,##0.00";
+                dataGridView2.Columns[columnIndex].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al formatear la columna según el valor de label1: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el valor seleccionado del ComboBox
+                string selectedValue = comboBox1.SelectedItem?.ToString();
+
+                // Determinar la columna a utilizar según el valor seleccionado del ComboBox
+                int columnIndex;
+                if (selectedValue == "CATAUX" || selectedValue == "CATMAY")
+                {
+                    // Usar la columna "B3"
+                    if (!dataGridView1.Columns.Contains("B3"))
+                    {
+                        MessageBox.Show("La columna 'B3' no existe en el DataGridView.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    columnIndex = dataGridView1.Columns["B3"].Index;
+                }
+                else if (selectedValue != null && (selectedValue.StartsWith("SAC") || selectedValue.StartsWith("COR") || selectedValue.StartsWith("EPE")))
                 {
                     // Usar la columna "impte"
                     if (!dataGridView1.Columns.Contains("impte"))
@@ -1004,7 +1086,7 @@ namespace ManagerCont
                 }
                 else
                 {
-                    MessageBox.Show("No se puede determinar la columna adecuada para el valor de label1: " + label1Value, "Error",
+                    MessageBox.Show("No se puede determinar la columna adecuada para el valor seleccionado del ComboBox.", "Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -1045,12 +1127,12 @@ namespace ManagerCont
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al formatear la columna según el valor de label1: " + ex.Message, "Error",
+                MessageBox.Show("Error al formatear la columna según el valor seleccionado del ComboBox: " + ex.Message, "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void formato(string fileNameWithoutExtension)
         {
             try
             {
@@ -1289,7 +1371,6 @@ namespace ManagerCont
 
         }
 
-        //Boton para copiar el datagrid
         private void button6_Click(object sender, EventArgs e)
         {
             // Limpiar dataGridView1 antes de copiar las filas de dataGridView2
@@ -1299,37 +1380,60 @@ namespace ManagerCont
             // Copiar las columnas de dataGridView2 a dataGridView1
             foreach (DataGridViewColumn column in dataGridView2.Columns)
             {
-                dataGridView1.Columns.Add((DataGridViewColumn)column.Clone());
+                // Clonar la columna y ajustar el ancho
+                DataGridViewColumn newColumn = (DataGridViewColumn)column.Clone();
+                newColumn.Width = column.Width; // Copiar el ancho de la columna
+                dataGridView1.Columns.Add(newColumn);
             }
 
-            // Iterar sobre cada fila en dataGridView2
+            // Copiar las filas de dataGridView2 a dataGridView1
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
                 // Verificar que la fila no sea una fila nueva vacía
                 if (!row.IsNewRow)
                 {
                     // Crear una nueva fila para dataGridView1
-                    DataGridViewRow newRow = new DataGridViewRow();
-                    newRow.CreateCells(dataGridView1);
+                    DataGridViewRow newRow = (DataGridViewRow)row.Clone();
+                    newRow.Height = row.Height; // Copiar la altura de la fila
 
                     // Copiar los valores de las celdas de la fila original a la nueva fila
                     for (int i = 0; i < row.Cells.Count; i++)
                     {
                         newRow.Cells[i].Value = row.Cells[i].Value;
-                    }
-                    foreach (DataGridViewColumn column in dataGridView2.Columns)
-                    {
-                        column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                        newRow.Cells[i].Style = row.Cells[i].Style; // Copiar el estilo de la celda
                     }
 
                     // Agregar la nueva fila a dataGridView1
                     dataGridView1.Rows.Add(newRow);
-                    Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
-                    dataGridView1.DefaultCellStyle.Font = newFont;
-
                 }
             }
+
+            // Asignar la numeración en los encabezados de fila (RowHeaders)
+            int rowIndex = 1;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    row.HeaderCell.Value = rowIndex.ToString();
+                    rowIndex++;
+                }
+            }
+
+            // Configurar el estilo de la fuente para dataGridView1
+            Font newFont = new Font("Courier New", 10, FontStyle.Bold);
+            dataGridView1.DefaultCellStyle.Font = newFont;
+
+            // Deshabilitar la ordenación de las columnas
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            // Ajustar el ancho del encabezado de fila para mostrar el número completo
+            dataGridView1.RowHeadersWidth = 65; // Ajusta el ancho según sea necesario
         }
+
+
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {

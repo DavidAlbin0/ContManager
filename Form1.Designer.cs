@@ -52,6 +52,7 @@
             this.gUARDARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gUARDARRANDOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gUARDARCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cAMBIARRUTAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -62,7 +63,6 @@
             this.button9 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.cAMBIARRUTAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -117,22 +117,22 @@
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button7.Location = new System.Drawing.Point(1484, 63);
+            this.button7.Location = new System.Drawing.Point(1649, 55);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(125, 44);
             this.button7.TabIndex = 7;
-            this.button7.Text = "SUBIR ARCHIVO";
+            this.button7.Text = "Subir Archivo";
             this.button7.UseVisualStyleBackColor = false;
             // 
             // button8
             // 
             this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.button8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button8.Location = new System.Drawing.Point(1615, 63);
+            this.button8.Location = new System.Drawing.Point(1606, 790);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(168, 44);
             this.button8.TabIndex = 8;
-            this.button8.Text = "GUARDAR ARCHIVO";
+            this.button8.Text = "Guardar Archivo";
             this.button8.UseVisualStyleBackColor = false;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -223,21 +223,21 @@
             this.rANDOMToolStripMenuItem1,
             this.cSVToolStripMenuItem1});
             this.aRCHIVOToolStripMenuItem.Name = "aRCHIVOToolStripMenuItem";
-            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
-            this.aRCHIVOToolStripMenuItem.Text = "ARCHIVO";
+            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.aRCHIVOToolStripMenuItem.Text = "Archivo";
             // 
             // rANDOMToolStripMenuItem1
             // 
             this.rANDOMToolStripMenuItem1.Name = "rANDOMToolStripMenuItem1";
-            this.rANDOMToolStripMenuItem1.Size = new System.Drawing.Size(157, 26);
-            this.rANDOMToolStripMenuItem1.Text = "RANDOM";
+            this.rANDOMToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.rANDOMToolStripMenuItem1.Text = "Random";
             this.rANDOMToolStripMenuItem1.Click += new System.EventHandler(this.rANDOMToolStripMenuItem1_Click);
             // 
             // cSVToolStripMenuItem1
             // 
             this.cSVToolStripMenuItem1.Name = "cSVToolStripMenuItem1";
-            this.cSVToolStripMenuItem1.Size = new System.Drawing.Size(157, 26);
-            this.cSVToolStripMenuItem1.Text = "CSV";
+            this.cSVToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.cSVToolStripMenuItem1.Text = "Csv";
             this.cSVToolStripMenuItem1.Click += new System.EventHandler(this.cSVToolStripMenuItem1_Click);
             // 
             // gUARDARToolStripMenuItem
@@ -246,27 +246,34 @@
             this.gUARDARRANDOMToolStripMenuItem,
             this.gUARDARCSVToolStripMenuItem});
             this.gUARDARToolStripMenuItem.Name = "gUARDARToolStripMenuItem";
-            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
-            this.gUARDARToolStripMenuItem.Text = "GUARDAR";
+            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
+            this.gUARDARToolStripMenuItem.Text = "Guardar";
             // 
             // gUARDARRANDOMToolStripMenuItem
             // 
             this.gUARDARRANDOMToolStripMenuItem.Name = "gUARDARRANDOMToolStripMenuItem";
-            this.gUARDARRANDOMToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            this.gUARDARRANDOMToolStripMenuItem.Text = "RANDOM";
+            this.gUARDARRANDOMToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gUARDARRANDOMToolStripMenuItem.Text = "Random";
             this.gUARDARRANDOMToolStripMenuItem.Click += new System.EventHandler(this.gUARDARRANDOMToolStripMenuItem_Click);
             // 
             // gUARDARCSVToolStripMenuItem
             // 
             this.gUARDARCSVToolStripMenuItem.Name = "gUARDARCSVToolStripMenuItem";
-            this.gUARDARCSVToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            this.gUARDARCSVToolStripMenuItem.Text = "CSV";
+            this.gUARDARCSVToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gUARDARCSVToolStripMenuItem.Text = "Csv";
             this.gUARDARCSVToolStripMenuItem.Click += new System.EventHandler(this.gUARDARCSVToolStripMenuItem_Click);
+            // 
+            // cAMBIARRUTAToolStripMenuItem
+            // 
+            this.cAMBIARRUTAToolStripMenuItem.Name = "cAMBIARRUTAToolStripMenuItem";
+            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
+            this.cAMBIARRUTAToolStripMenuItem.Text = "Cambiar Ruta";
+            this.cAMBIARRUTAToolStripMenuItem.Click += new System.EventHandler(this.cAMBIARRUTAToolStripMenuItem_Click);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button1.Location = new System.Drawing.Point(1360, 63);
+            this.button1.Location = new System.Drawing.Point(1656, 725);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 44);
             this.button1.TabIndex = 16;
@@ -358,7 +365,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(25, 133);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 31);
+            this.label3.Size = new System.Drawing.Size(0, 25);
             this.label3.TabIndex = 24;
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
@@ -373,13 +380,6 @@
             this.button2.Text = "Actualizar datos";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // cAMBIARRUTAToolStripMenuItem
-            // 
-            this.cAMBIARRUTAToolStripMenuItem.Name = "cAMBIARRUTAToolStripMenuItem";
-            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
-            this.cAMBIARRUTAToolStripMenuItem.Text = "CAMBIAR RUTA";
-            this.cAMBIARRUTAToolStripMenuItem.Click += new System.EventHandler(this.cAMBIARRUTAToolStripMenuItem_Click);
             // 
             // Form1
             // 
