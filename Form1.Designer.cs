@@ -214,7 +214,7 @@
             this.cAMBIARRUTAToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1795, 38);
+            this.menuStrip1.Size = new System.Drawing.Size(1797, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -224,7 +224,7 @@
             this.rANDOMToolStripMenuItem1,
             this.cSVToolStripMenuItem1});
             this.aRCHIVOToolStripMenuItem.Name = "aRCHIVOToolStripMenuItem";
-            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(73, 34);
+            this.aRCHIVOToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.aRCHIVOToolStripMenuItem.Text = "Archivo";
             // 
             // rANDOMToolStripMenuItem1
@@ -247,7 +247,7 @@
             this.gUARDARRANDOMToolStripMenuItem,
             this.gUARDARCSVToolStripMenuItem});
             this.gUARDARToolStripMenuItem.Name = "gUARDARToolStripMenuItem";
-            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(76, 34);
+            this.gUARDARToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
             this.gUARDARToolStripMenuItem.Text = "Guardar";
             // 
             // gUARDARRANDOMToolStripMenuItem
@@ -267,7 +267,7 @@
             // cAMBIARRUTAToolStripMenuItem
             // 
             this.cAMBIARRUTAToolStripMenuItem.Name = "cAMBIARRUTAToolStripMenuItem";
-            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(113, 34);
+            this.cAMBIARRUTAToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
             this.cAMBIARRUTAToolStripMenuItem.Text = "Cambiar Ruta";
             this.cAMBIARRUTAToolStripMenuItem.Click += new System.EventHandler(this.cAMBIARRUTAToolStripMenuItem_Click);
             // 
@@ -388,7 +388,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1436, 684);
+            this.ClientSize = new System.Drawing.Size(1797, 859);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button6);
