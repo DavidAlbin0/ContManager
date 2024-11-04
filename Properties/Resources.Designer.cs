@@ -63,6 +63,16 @@ namespace ManagerCont.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap borrar_archivo__1_ {
+            get {
+                object obj = ResourceManager.GetObject("borrar-archivo (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap copiar {
             get {
                 object obj = ResourceManager.GetObject("copiar", resourceCulture);

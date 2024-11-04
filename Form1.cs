@@ -21,8 +21,8 @@ namespace ManagerCont
         public Form1()
         {
             InitializeComponent();
-            _conexion = new conexion();
-            ProbarConexion();
+            /*  _conexion = new conexion();
+              ProbarConexion();*/
 
             comboBox1.Items.Add("Seleccione un archivo");
             comboBox1.Items.Add("CATAUX");
@@ -64,9 +64,9 @@ namespace ManagerCont
             button1.Visible = false;
             button3.Visible = false;
             button8.Visible = false;
-            button7.Visible = true;
-            label1.Visible = false;
-            label2.Visible = true;
+            button7.Visible = false;
+            label1.Visible = true;
+            label2.Visible = false;
             button2.Visible = false;
             comboBox3.Visible = false;
             comboBox2.Visible = false;
@@ -94,9 +94,9 @@ namespace ManagerCont
             // Mostrar componentes para la opción "Random"
             dataGridView1.Visible = true;
             button8.Visible = false;
-            button7.Visible = true;
+            button7.Visible = false;
             button6.Visible = true;
-            label1.Visible = true;
+            label1.Visible = false;
             button1.Visible = false;
             button4.Visible = true;
             button5.Visible = true;
@@ -107,7 +107,7 @@ namespace ManagerCont
 
             // Ocultar otros componentes
             button3.Visible = false;
-            label2.Visible = false;
+            label2.Visible = true;
             button2.Visible = false;
             comboBox3.Visible = false;
             comboBox2.Visible = false;
@@ -138,7 +138,6 @@ namespace ManagerCont
             label3.Visible = true;
 
 
-
             // Ocultar otros componentes
             button1.Visible = false;
             button8.Visible = false;
@@ -147,17 +146,17 @@ namespace ManagerCont
         }
 
 
-        private void ProbarConexion()
-        {
-            try
-            {
-                _conexion.TestConnection();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al conectar a la base de datos: " + ex.Message);
-            }
-        }
+        /*     private void ProbarConexion()
+             {
+                 try
+                 {
+                     _conexion.TestConnection();
+                 }
+                 catch (Exception ex)
+                 {
+                     MessageBox.Show("Error al conectar a la base de datos: " + ex.Message);
+                 }
+             }*/
 
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -185,7 +184,7 @@ namespace ManagerCont
             try
             {
 
-                string archivosPath =label3.Text; // Ruta literal al directorio donde están los archivos
+                string archivosPath = label3.Text; // Ruta literal al directorio donde están los archivos
                 string selectedFilePath = string.Empty;
 
                 switch (comboBox1.SelectedItem.ToString())
@@ -367,7 +366,7 @@ namespace ManagerCont
                 dataGridView2.Columns.Add(indentiColumn);
                 dataGridView2.Columns.Add(realColumn);
 
-                Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                 dataGridView2.DefaultCellStyle.Font = newFont;
 
                 int index = 0;
@@ -443,7 +442,8 @@ namespace ManagerCont
                 dataGridView2.Columns.Add(rangoInfColumn);
                 dataGridView2.Columns.Add(rangoSupColumn);
 
-                Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                // Cambiar el tipo de letra según lo necesites
+                Font newFont = new Font("Arial", 7, FontStyle.Bold);
                 dataGridView2.DefaultCellStyle.Font = newFont;
 
                 int index = 0;
@@ -523,7 +523,7 @@ namespace ManagerCont
                 dataGridView2.Columns.Add(ultimaOperacionRegColumn);
                 dataGridView2.Columns.Add(othersColumn);
 
-                Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                 dataGridView2.DefaultCellStyle.Font = newFont;
 
                 int index = 0;
@@ -588,7 +588,8 @@ namespace ManagerCont
                 dataGridView2.Columns.Add(rangoInfColumn);
                 dataGridView2.Columns.Add(rangoSupColumn);
 
-                Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                // Cambiar el tipo de letra según lo necesites
+                Font newFont = new Font("Arial", 7, FontStyle.Bold);
                 dataGridView2.DefaultCellStyle.Font = newFont;
 
                 int index = 0;
@@ -676,7 +677,7 @@ namespace ManagerCont
                     {
                         MessageBox.Show("Archivo no reconocido.");
                     }
-                                button1_Click(sender, e);
+                    button1_Click(sender, e);
 
                 }
             }
@@ -723,7 +724,7 @@ namespace ManagerCont
                             sb.Append(line); // Usar Append en lugar de AppendLine para evitar saltos de línea adicionales
                         }
                     }
-                    Font newFont = new Font("Courier New", 10, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                    Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                     dataGridView1.DefaultCellStyle.Font = newFont;
                     // Escribir el contenido del StringBuilder en el archivo de texto
                     File.WriteAllText(filePath, sb.ToString());
@@ -746,7 +747,7 @@ namespace ManagerCont
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
                 saveFileDialog1.Title = "Guardar datos CATMAY en archivo de texto";
-                saveFileDialog1.FileName = "datos_catmay"; // Nombre base del archivo
+                saveFileDialog1.FileName = "CATMAY"; // Nombre base del archivo
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -801,7 +802,7 @@ namespace ManagerCont
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
                 saveFileDialog1.Title = "Guardar datos en archivo de texto";
-                saveFileDialog1.FileName = "datos_guardados"; // Nombre base del archivo
+                saveFileDialog1.FileName = "DATOS"; // Nombre base del archivo
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -856,7 +857,7 @@ namespace ManagerCont
             // Mostrar componentes para la opción "Random"
             dataGridView1.Visible = true;
             button8.Visible = false;
-            button7.Visible = true;
+            button7.Visible = false;
             label1.Visible = true;
             button1.Visible = false;
 
@@ -927,6 +928,7 @@ namespace ManagerCont
         {
             try
             {
+
                 string label1Content = label1.Text.ToUpper(); // Obtener el contenido del label 1 y convertirlo a mayúsculas
 
                 if (label1Content.Contains("DATOS"))
@@ -1006,6 +1008,16 @@ namespace ManagerCont
                         return;
                     }
                     columnIndex = dataGridView2.Columns["impte"].Index;
+                }
+                else if (label1Value.StartsWith("DAT"))
+                {
+                    // Usar la columna "impte"
+                    if (!dataGridView2.Columns.Contains("others"))
+                    {
+                        MessageBox.Show("Datos");
+                        return;
+                    }
+                    columnIndex = dataGridView2.Columns["others"].Index;
                 }
                 else
                 {
@@ -1376,6 +1388,8 @@ namespace ManagerCont
         private void button6_Click(object sender, EventArgs e)
         {
             // Limpiar dataGridView1 antes de copiar las filas de dataGridView2
+            button6.UseWaitCursor = true;
+
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
 
@@ -1422,7 +1436,7 @@ namespace ManagerCont
             }
 
             // Configurar el estilo de la fuente para dataGridView1
-            Font newFont = new Font("Courier New", 10, FontStyle.Bold);
+            Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
             dataGridView1.DefaultCellStyle.Font = newFont;
 
             // Deshabilitar la ordenación de las columnas
@@ -1433,6 +1447,8 @@ namespace ManagerCont
 
             // Ajustar el ancho del encabezado de fila para mostrar el número completo
             dataGridView1.RowHeadersWidth = 65; // Ajusta el ancho según sea necesario
+            button6.UseWaitCursor = false;
+
         }
 
 
@@ -1492,10 +1508,10 @@ namespace ManagerCont
             }
         }
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            ProcesarDatos();
-        }
+        /*    private void button9_Click(object sender, EventArgs e)
+            {
+                ProcesarDatos();
+            }*/
 
         private void label3_Click(object sender, EventArgs e)
         {
@@ -1520,6 +1536,225 @@ namespace ManagerCont
                 }
             }
         }
+        private void borrarSaldosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Verifica si la columna "Saldo" existe en el DataGridView
+            if (!dataGridView1.Columns.Contains("Saldo"))
+            {
+                MessageBox.Show("La columna 'Saldo' no existe en el DataGridView.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Sale del método si la columna no existe
+            }
 
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+                    // Intenta establecer el valor en 0 en la celda correspondiente
+                    row.Cells["Saldo"].Value = "0";
+                }
+                catch
+                {
+                    // Si ocurre una excepción en una fila específica, muestra un MessageBox
+                    MessageBox.Show("Error al intentar actualizar una fila. Asegúrate de que todas las celdas 'Saldo' son válidas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Sale del método si ocurre un error
+                }
+            }
+        }
+
+        private void modificarDatosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Crear una instancia de Form3
+            Form3 form3 = new Form3();
+
+            // Mostrar el Formulario 3
+            form3.Show(); // Usa form3.ShowDialog(); si quieres abrirlo como un formulario modal
+        }
+
+        private void subirArchivoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                openFileDialog1.Filter = "Archivos de Texto|*"; // Filtro para archivos de texto
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog1.FileName;
+
+                    // Extraer el nombre del archivo sin la extensión
+                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+
+                    // Asignar el nombre al texto del label (label1)
+                    label1.Text = fileNameWithoutExtension;
+
+                    // Leer la línea completa del archivo usando StreamReader
+                    string lineaCompleta = ReadFileWithStreamReader(filePath);
+
+                    // Aquí debe de llevar una instrucción dependiendo el label
+                    if (fileNameWithoutExtension.StartsWith("CATMAY", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        InterpretarYMostrarCatmay(lineaCompleta);
+                    }
+                    else if (fileNameWithoutExtension.StartsWith("CATAUX", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        InterpretarYMostrarCataux(lineaCompleta);
+                    }
+                    else if (fileNameWithoutExtension.Equals("DATOS", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        InterpretarYMostrarDatos(lineaCompleta);
+                    }
+                    else if (fileNameWithoutExtension.StartsWith("SAC", StringComparison.CurrentCultureIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("COR", StringComparison.CurrentCultureIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("EPE", StringComparison.CurrentCultureIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("ING", StringComparison.CurrentCultureIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("CON", StringComparison.CurrentCultureIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("GEO", StringComparison.CurrentCultureIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("COS", StringComparison.CurrentCultureIgnoreCase) ||
+                             fileNameWithoutExtension.StartsWith("SUP", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        InterpretarYMostrarOperaciones(lineaCompleta);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Archivo no reconocido.");
+                    }
+                    button1_Click(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el archivo: " + ex.Message);
+            }
+        }
+
+        private string ReadFileWithStreamReader(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("El archivo no existe.", filePath);
+            }
+
+            // Intenta leer el archivo con varias codificaciones
+            foreach (var encoding in new[] { Encoding.UTF8, Encoding.GetEncoding("iso-8859-1"), Encoding.GetEncoding("windows-1252") })
+            {
+                try
+                {
+                    using (var reader = new StreamReader(filePath, encoding))
+                    {
+                        string content = reader.ReadToEnd();
+                        content = CleanContent(content); // Limpiar contenido de caracteres incorrectos
+                        Console.WriteLine($"Contenido leído con codificación {encoding.WebName}: {content}");
+                        return content;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al leer con codificación {encoding.WebName}: {ex.Message}");
+                }
+            }
+
+            throw new Exception("No se pudo leer el archivo con las codificaciones disponibles.");
+        }
+
+        private string CleanContent(string content)
+        {
+            return content.Replace("�", "-"); // Reemplazar caracteres incorrectos
+        }
+
+        private void originalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Mostrar un cuadro de diálogo de confirmación
+                DialogResult result = MessageBox.Show(
+                    "¿Estás seguro de que deseas borrar todos los datos?",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                // Si el usuario selecciona "Sí", proceder a borrar los datos
+                if (result == DialogResult.Yes)
+                {
+                    dataGridView2.Rows.Clear();
+                    // Si también quieres borrar las columnas, descomenta la siguiente línea:
+                    dataGridView2.Columns.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción que ocurra
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void copiaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Mostrar un cuadro de diálogo de confirmación
+                DialogResult result = MessageBox.Show(
+                    "¿Estás seguro de que deseas borrar todos los datos?",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                // Si el usuario selecciona "Sí", proceder a borrar los datos
+                if (result == DialogResult.Yes)
+                {
+                    dataGridView1.Rows.Clear();
+                    // Si también quieres borrar las columnas, descomenta la siguiente línea:
+                    dataGridView1.Columns.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción que ocurra
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void verControlToolStripMenuItem_Click(object sender, EventArgs e) 
+        { 
+        // Crear una instancia de Form3
+            Form4 form4 = new Form4();
+
+        // Mostrar el Formulario 3
+        form4.Show(); // Usa form3.ShowDialog(); si quieres abrirlo como un formulario modal
+        }
+
+        private void clasificarCostosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void todoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Mostrar un cuadro de diálogo de confirmación
+                DialogResult result = MessageBox.Show(
+                    "¿Estás seguro de que deseas borrar todos los datos?",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                // Si el usuario selecciona "Sí", proceder a borrar los datos
+                if (result == DialogResult.Yes)
+                {
+                    dataGridView1.Rows.Clear();
+                    // Si también quieres borrar las columnas, descomenta la siguiente línea:
+                    dataGridView1.Columns.Clear();
+                    dataGridView2.Rows.Clear();
+                    // Si también quieres borrar las columnas, descomenta la siguiente línea:
+                    dataGridView2.Columns.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción que ocurra
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

@@ -38,7 +38,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 61);
+            this.comboBox1.Location = new System.Drawing.Point(868, 218);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(156, 24);
             this.comboBox1.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(43, 9);
+            this.label1.Location = new System.Drawing.Point(1020, 120);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(403, 20);
             this.label1.TabIndex = 2;
@@ -57,7 +57,7 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(207, 61);
+            this.comboBox2.Location = new System.Drawing.Point(868, 188);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(156, 24);
             this.comboBox2.TabIndex = 3;
@@ -65,7 +65,7 @@
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(387, 61);
+            this.comboBox3.Location = new System.Drawing.Point(868, 158);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(156, 24);
             this.comboBox3.TabIndex = 4;
@@ -73,9 +73,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(219, 267);
+            this.button1.Location = new System.Drawing.Point(868, 248);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 27);
+            this.button1.Size = new System.Drawing.Size(156, 27);
             this.button1.TabIndex = 5;
             this.button1.Text = "Cargar datos";
             this.button1.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 324);
+            this.ClientSize = new System.Drawing.Size(1099, 679);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
