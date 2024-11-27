@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using ManagerCont;
@@ -336,300 +337,197 @@ namespace ManagerCont
 
         private void InterpretarYMostrarOperaciones(string linea)
         {
+            string filePath = labelRUTA.Text;
+            int recordLength = 64; // Longitud fija de cada registro
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+
             try
             {
-                // Limpiar DataGridView antes de cargar nuevos datos
-                dataGridView2.Rows.Clear();
-                dataGridView2.Columns.Clear();
-
-                // Configurar columnas del DataGridView
-                DataGridViewColumn ctaColumn = new DataGridViewTextBoxColumn { Name = "CTA", HeaderText = "CTA" };
-                DataGridViewColumn descrColumn = new DataGridViewTextBoxColumn { Name = "descr", HeaderText = "descr" };
-                DataGridViewColumn feColumn = new DataGridViewTextBoxColumn { Name = "fe", HeaderText = "fe" };
-                DataGridViewColumn impteColumn = new DataGridViewTextBoxColumn { Name = "impte", HeaderText = "impte" };
-                DataGridViewColumn indentiColumn = new DataGridViewTextBoxColumn { Name = "indenti", HeaderText = "indenti" };
-                DataGridViewColumn realColumn = new DataGridViewTextBoxColumn { Name = "real", HeaderText = "real" };
-
-                // Configurar todas las columnas para que no sean ordenables
-                ctaColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                descrColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                feColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                impteColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                indentiColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                realColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-
-                // Agregar columnas al DataGridView
-                dataGridView2.Columns.Add(ctaColumn);
-                dataGridView2.Columns.Add(descrColumn);
-                dataGridView2.Columns.Add(feColumn);
-                dataGridView2.Columns.Add(impteColumn);
-                dataGridView2.Columns.Add(indentiColumn);
-                dataGridView2.Columns.Add(realColumn);
+                // Definir columnas de ejemplo (modifica según los datos en el archivo)
+                dataGridView2.Columns.Add("CTA", "CTA");
+                dataGridView2.Columns.Add("descr", "descr");
+                dataGridView2.Columns.Add("fe", "fe");
+                dataGridView2.Columns.Add("impte", "impte");
+                dataGridView2.Columns.Add("indenti", "indenti");
+                dataGridView2.Columns.Add("real", "real");
 
                 Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                 dataGridView2.DefaultCellStyle.Font = newFont;
-
-                int index = 0;
-                int expectedNumber = 1; // Número ascendente esperado
-                while (index + 64 <= linea.Length)
+                // Abrir el archivo para lectura
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
                 {
-                    // Interpretar cada campo según los índices especificados
-                    string CTA = linea.Substring(index, 6).Trim().PadRight(6);
-                    string descr = linea.Substring(index + 6, 30).Trim().PadRight(30);
-                    string fe = linea.Substring(index + 36, 2).Trim().PadRight(2);
-                    string impte = linea.Substring(index + 38, 16).Trim().PadRight(16);
-                    string indenti = linea.Substring(index + 54, 1).Trim().PadRight(1);
-                    string real = linea.Substring(index + 55, 9).Trim().PadRight(9);
+                    long fileLength = fs.Length;
+                    long recordCount = fileLength / recordLength;
 
-                    // Agregar fila al DataGridView
-                    int rowIndex = dataGridView2.Rows.Add(CTA, descr, fe, impte, indenti, real);
-
-                    // Comprobar si el valor en CTA es el número ascendente esperado
-                    if (int.TryParse(CTA.Trim(), out int ctaNumber) && ctaNumber == expectedNumber)
+                    // Leer cada registro
+                    for (int i = 0; i < recordCount; i++)
                     {
-                        dataGridView2.Rows[rowIndex].Cells["CTA"].Style.BackColor = Color.Yellow;
-                        expectedNumber++; // Incrementar el número esperado
+                        byte[] buffer = reader.ReadBytes(recordLength);
+                        string record = Encoding.Default.GetString(buffer);
+
+                        // Separar los campos según la estructura (ajustar a tu formato)                                       
+                        string CTA = record.Substring(0, 6).Trim();
+                        string descr = record.Substring(6, 30).Trim();
+                        string fe = record.Substring(36, 2).Trim();
+                        string impte = record.Substring(38, 16).Trim();
+                        string indenti = record.Substring(54, 1).Trim();
+                        string real = record.Substring(55, 9).Trim();
+
+                        // Agregar fila a la DataGridView
+
+                        dataGridView2.Rows.Add(CTA, descr, fe, impte, indenti, real);
+
                     }
-
-                    // Avanzar al siguiente conjunto de datos
-                    index += 64;
                 }
-
-                // Ajustar automáticamente el tamaño de las columnas
-                dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-                // Asignar números crecientes al encabezado de filas
-                for (int u = 0; u < dataGridView2.Rows.Count; u++)
-                {
-                    dataGridView2.Rows[u].HeaderCell.Value = (u + 1).ToString();
-                }
-
-                // Ajustar el ancho del encabezado de fila para que se muestre correctamente
-                dataGridView2.RowHeadersWidth = 65;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al interpretar y mostrar los datos: " + ex.Message);
+                MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void InterpretarYMostrarCatmay(string linea)
         {
+            string filePath = labelRUTA.Text;
+            int recordLength = 64; // Longitud fija de cada registro
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+
             try
             {
-                // Limpiar DataGridView antes de cargar nuevos datos
-                dataGridView2.Rows.Clear();
-                dataGridView2.Columns.Clear();
-
-                // Configurar columnas del DataGridView
-                DataGridViewColumn cuentaColumn = new DataGridViewTextBoxColumn { Name = "Cuenta", HeaderText = "Cuenta" };
-                DataGridViewColumn nombreColumn = new DataGridViewTextBoxColumn { Name = "Nombre", HeaderText = "Nombre" };
-                DataGridViewColumn saldoColumn = new DataGridViewTextBoxColumn { Name = "Saldo", HeaderText = "Saldo" };
-                DataGridViewColumn rangoInfColumn = new DataGridViewTextBoxColumn { Name = "Rango_Inf", HeaderText = "Rango_Inf" };
-                DataGridViewColumn rangoSupColumn = new DataGridViewTextBoxColumn { Name = "Rango_Sup", HeaderText = "Rango_Sup" };
-
-                // Configurar todas las columnas para que no sean ordenables
-                cuentaColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                nombreColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                saldoColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                rangoInfColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                rangoSupColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-
-                // Agregar columnas al DataGridView
-                dataGridView2.Columns.Add(cuentaColumn);
-                dataGridView2.Columns.Add(nombreColumn);
-                dataGridView2.Columns.Add(saldoColumn);
-                dataGridView2.Columns.Add(rangoInfColumn);
-                dataGridView2.Columns.Add(rangoSupColumn);
-
-                // Cambiar el tipo de letra según lo necesites
-                Font newFont = new Font("Arial", 7, FontStyle.Bold);
-                dataGridView2.DefaultCellStyle.Font = newFont;
-
-                int index = 0;
-                while (index + 64 <= linea.Length)
-                {
-                    // Interpretar cada campo según los índices especificados
-                    string Cuenta = linea.Substring(index, 6).Trim().PadRight(6);
-                    string Nombre = linea.Substring(index + 6, 32).Trim().PadRight(32);
-                    string Saldo = linea.Substring(index + 38, 16).Trim().PadRight(16);
-                    string Rango_Inf = linea.Substring(index + 54, 5).Trim().PadRight(5);
-                    string Rango_Sup = linea.Substring(index + 59, 5).Trim().PadRight(5);
-
-                    // Agregar fila al DataGridView
-                    dataGridView2.Rows.Add(Cuenta, Nombre, Saldo, Rango_Inf, Rango_Sup);
-
-                    // Avanzar al siguiente conjunto de datos
-                    index += 64;
-                }
-
-                // Ajustar automáticamente el tamaño de las columnas
-                dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-                // Asignar números crecientes al encabezado de filas
-                for (int u = 0; u < dataGridView2.Rows.Count; u++)
-                {
-                    dataGridView2.Rows[u].HeaderCell.Value = (u + 1).ToString();
-                }
-
-                // Ajustar el ancho del encabezado de fila para que se muestre correctamente
-                dataGridView2.RowHeadersWidth = 65;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al interpretar y mostrar los datos: " + ex.Message);
-            }
-        }
-
-
-        private void InterpretarYMostrarDatos(string linea)
-        {
-            try
-            {
-                // Limpiar DataGridView antes de cargar nuevos datos
-                dataGridView2.Rows.Clear();
-                dataGridView2.Columns.Clear();
-
-                // Configurar columnas del DataGridView
-                DataGridViewColumn d1Column = new DataGridViewTextBoxColumn { Name = "D1", HeaderText = "D1" };
-                DataGridViewColumn d2Column = new DataGridViewTextBoxColumn { Name = "D2", HeaderText = "D2" };
-                DataGridViewColumn d3Column = new DataGridViewTextBoxColumn { Name = "D3", HeaderText = "D3" };
-                DataGridViewColumn noArchColumn = new DataGridViewTextBoxColumn { Name = "No_arch", HeaderText = "No_arch" };
-                DataGridViewColumn aoColumn = new DataGridViewTextBoxColumn { Name = "a_o", HeaderText = "a_o" };
-                DataGridViewColumn others1Column = new DataGridViewTextBoxColumn { Name = "others1", HeaderText = "others1" };
-                DataGridViewColumn ultimaPol1Column = new DataGridViewTextBoxColumn { Name = "ultimaPol1", HeaderText = "ultimaPol1" };
-                DataGridViewColumn ultimaOperacionRegColumn = new DataGridViewTextBoxColumn { Name = "ultimaOperacionReg", HeaderText = "ultimaOperacionReg" };
-                DataGridViewColumn othersColumn = new DataGridViewTextBoxColumn { Name = "others", HeaderText = "others" };
-
-                // Configurar todas las columnas para que no sean ordenables
-                d1Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-                d2Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-                d3Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-                noArchColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                aoColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                others1Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-                ultimaPol1Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-                ultimaOperacionRegColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                othersColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-
-                // Agregar columnas al DataGridView
-                dataGridView2.Columns.Add(d1Column);
-                dataGridView2.Columns.Add(d2Column);
-                dataGridView2.Columns.Add(d3Column);
-                dataGridView2.Columns.Add(noArchColumn);
-                dataGridView2.Columns.Add(aoColumn);
-                dataGridView2.Columns.Add(others1Column);
-                dataGridView2.Columns.Add(ultimaPol1Column);
-                dataGridView2.Columns.Add(ultimaOperacionRegColumn);
-                dataGridView2.Columns.Add(othersColumn);
+                // Definir columnas de ejemplo (modifica según los datos en el archivo)
+                dataGridView2.Columns.Add("Cuenta", "Cuenta");
+                dataGridView2.Columns.Add("Nombre", "Nombre");
+                dataGridView2.Columns.Add("Saldo", "Saldo");
+                dataGridView2.Columns.Add("Rango_Inf", "Rango_Inf");
+                dataGridView2.Columns.Add("Rango_Sup", "Rango_Sup");
 
                 Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
                 dataGridView2.DefaultCellStyle.Font = newFont;
-
-                int index = 0;
-                while (index + 236 <= linea.Length)
+                // Abrir el archivo para lectura
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
                 {
-                    // Interpretar cada campo según los índices especificados
-                    string D1 = linea.Substring(index, 64).Trim().PadRight(64);
-                    string D2 = linea.Substring(index + 64, 60).Trim().PadRight(60);
-                    string D3 = linea.Substring(index + 124, 45).Trim().PadRight(45);
-                    string No_arch = linea.Substring(index + 169, 15).Trim().PadRight(15);
-                    string a_o = linea.Substring(index + 184, 5).Trim().PadRight(5);
-                    string Others1 = linea.Substring(index + 189, 25).Trim().PadRight(25);
-                    string ultimaPol1 = linea.Substring(index + 214, 5).Trim().PadRight(5);
-                    string ultimaOperacionReg = linea.Substring(index + 219, 6).Trim().PadRight(6);
-                    string others = linea.Substring(index + 225, 11).Trim().PadRight(11);
+                    long fileLength = fs.Length;
+                    long recordCount = fileLength / recordLength;
 
-                    // Agregar fila al DataGridView
-                    dataGridView2.Rows.Add(D1, D2, D3, No_arch, a_o, Others1, ultimaPol1, ultimaOperacionReg, others);
+                    // Leer cada registro
+                    for (int i = 0; i < recordCount; i++)
+                    {
+                        byte[] buffer = reader.ReadBytes(recordLength);
+                        string record = Encoding.Default.GetString(buffer);
 
-                    // Avanzar al siguiente conjunto de datos
-                    index += 236;
-                }
+                        // Separar los campos según la estructura (ajustar a tu formato)
+                        string Cuenta = record.Substring(0, 6).Trim();
+                        string Nombre = record.Substring(6, 32).Trim();
+                        string Saldo = record.Substring(38, 16).Trim();
+                        string Rango_Inf = record.Substring(54, 5).Trim();
+                        string Rango_Sup = record.Substring(59, 5).Trim();
 
-                dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                        // Agregar fila a la DataGridView
 
-                for (int u = 0; u < dataGridView1.Rows.Count; u++)
-                {
-                    dataGridView1.Rows[u].HeaderCell.Value = (u + 1).ToString();
+                        dataGridView2.Rows.Add(Cuenta, Nombre, Saldo, Rango_Inf, Rango_Sup);
+                      
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al interpretar y mostrar los datos: " + ex.Message);
+                MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void InterpretarYMostrarCataux(string linea)
+
+    private void CargarArchivoYMostrarEnGrid(string rutaArchivo)
         {
             try
             {
-                // Limpiar DataGridView antes de cargar nuevos datos
-                dataGridView2.Rows.Clear();
-                dataGridView2.Columns.Clear();
-
-                // Configurar columnas del DataGridView
-                DataGridViewColumn cuentaColumn = new DataGridViewTextBoxColumn { Name = "Cuenta", HeaderText = "Cuenta" };
-                DataGridViewColumn nombreColumn = new DataGridViewTextBoxColumn { Name = "Nombre", HeaderText = "Nombre" };
-                DataGridViewColumn saldoColumn = new DataGridViewTextBoxColumn { Name = "Saldo", HeaderText = "Saldo" };
-                DataGridViewColumn rangoInfColumn = new DataGridViewTextBoxColumn { Name = "Rango_Inf", HeaderText = "Rango_Inf" };
-                DataGridViewColumn rangoSupColumn = new DataGridViewTextBoxColumn { Name = "Rango_Sup", HeaderText = "Rango_Sup" };
-
-                // Configurar todas las columnas para que no sean ordenables
-                cuentaColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                nombreColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                saldoColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                rangoInfColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                rangoSupColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-
-                // Agregar columnas al DataGridView
-                dataGridView2.Columns.Add(cuentaColumn);
-                dataGridView2.Columns.Add(nombreColumn);
-                dataGridView2.Columns.Add(saldoColumn);
-                dataGridView2.Columns.Add(rangoInfColumn);
-                dataGridView2.Columns.Add(rangoSupColumn);
-
-                // Cambiar el tipo de letra según lo necesites
-                Font newFont = new Font("Arial", 7, FontStyle.Bold);
-                dataGridView2.DefaultCellStyle.Font = newFont;
-
-                int index = 0;
-                while (index + 64 <= linea.Length)
+                // Leer archivo con codificación adecuada (UTF-8 en este caso)
+                string linea;
+                using (StreamReader reader = new StreamReader(rutaArchivo, Encoding.UTF8))
                 {
-                    // Interpretar cada campo según los índices especificados
-                    string Cuenta = linea.Substring(index, 6).Trim().PadRight(6);
-                    string Nombre = linea.Substring(index + 6, 32).Trim().PadRight(32);
-                    string Saldo = linea.Substring(index + 38, 16).Trim().PadRight(16);
-                    string Rango_Inf = linea.Substring(index + 54, 5).Trim().PadRight(5);
-                    string Rango_Sup = linea.Substring(index + 59, 5).Trim().PadRight(5);
-
-                    // Agregar fila al DataGridView
-                    dataGridView2.Rows.Add(Cuenta, Nombre, Saldo, Rango_Inf, Rango_Sup);
-
-                    // Avanzar al siguiente conjunto de datos
-                    index += 64;
+                    linea = reader.ReadToEnd();
                 }
 
-                // Ajustar automáticamente el tamaño de las columnas
-                dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-                // Asignar números crecientes al encabezado de filas
-                for (int u = 0; u < dataGridView2.Rows.Count; u++)
-                {
-                    dataGridView2.Rows[u].HeaderCell.Value = (u + 1).ToString();
-                }
-
-                // Ajustar el ancho del encabezado de fila para que se muestre correctamente
-                dataGridView2.RowHeadersWidth = 65;
+                // Llamar a la función de interpretación y visualización
+                InterpretarYMostrarCatmay(linea);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al interpretar y mostrar los datos: " + ex.Message);
+                MessageBox.Show("Error al cargar el archivo: " + ex.Message);
+            }
+        }
+
+        // Ejemplo de uso:
+        // string ruta = "C:\\ruta\\al\\archivo.txt";
+        // CargarArchivoYMostrarEnGrid(ruta);
+
+        private void InterpretarYMostrarDatos(string linea)
+        {
+
+            string filePath = labelRUTA.Text;
+            int recordLength =236; // Longitud fija de cada registro
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+
+            try
+            {
+                // Definir columnas de ejemplo (modifica según los datos en el archivo)
+                dataGridView2.Columns.Add("D1", "D1");
+                dataGridView2.Columns.Add("D2", "D2");
+                dataGridView2.Columns.Add("D3", "D3");
+                dataGridView2.Columns.Add("No_arch", "No_arch");
+                dataGridView2.Columns.Add("a_o", "a_o");
+                dataGridView2.Columns.Add("Others1", "Others1");
+                dataGridView2.Columns.Add("ultimaPol1", "ultimaPol1");
+                dataGridView2.Columns.Add("ultimaOperacionReg", "ultimaOperacionReg");
+                dataGridView2.Columns.Add("others", "others");
+
+
+                Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                dataGridView2.DefaultCellStyle.Font = newFont;
+                // Abrir el archivo para lectura
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
+                {
+                    long fileLength = fs.Length;
+                    long recordCount = fileLength / recordLength;
+
+                    // Leer cada registro
+                    for (int i = 0; i < recordCount; i++)
+                    {
+                        byte[] buffer = reader.ReadBytes(recordLength);
+                        string record = Encoding.Default.GetString(buffer);
+
+                        // Separar los campos según la estructura (ajustar a tu formato)
+                        string D1 = record.Substring(0, 64).Trim();
+                        string D2 = record.Substring(64, 60).Trim();
+                        string D3 = record.Substring(124, 45).Trim();
+                        string No_arch = record.Substring(169, 15).Trim();
+                        string a_o = record.Substring(184, 5).Trim();
+                        string Others1 = record.Substring(189, 25).Trim();
+                        string ultimaPol1 = record.Substring(214, 5).Trim();
+                        string ultimaOperacionReg = record.Substring(219, 6).Trim();
+                        string others = record.Substring(225, 11).Trim();
+
+                        // Agregar fila a la DataGridView
+
+                        dataGridView2.Rows.Add(D1, D2, D3, No_arch, a_o, Others1, ultimaPol1, ultimaOperacionReg, others);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
-        // Evento para manejar el botón que carga y muestra los datos en el DataGridView
-        private void button7_Click(object sender, EventArgs e)
+            // Evento para manejar el botón que carga y muestra los datos en el DataGridView
+            private void button7_Click(object sender, EventArgs e)
         {
             try
             {
@@ -656,7 +554,7 @@ namespace ManagerCont
                     }
                     else if (fileNameWithoutExtension.StartsWith("CATAUX", StringComparison.OrdinalIgnoreCase))
                     {
-                        InterpretarYMostrarCataux(lineaCompleta);
+                        InterpretarYMostrarCatmay(lineaCompleta);
                     }
                     else if (fileNameWithoutExtension.Equals("DATOS", StringComparison.OrdinalIgnoreCase))
                     {
@@ -1247,15 +1145,28 @@ namespace ManagerCont
                     // Determinar qué función llamar basado en el nombre del archivo sin extensión
                     if (label1Content.StartsWith("SAC"))
                     {
-                        // Llamar a la función GuardarOpers con las longitudes específicas para SAC
                         GuardarOpers(6, 30, 2, 16, 1, 9);
                     }
                     else if (label1Content.StartsWith("COR"))
                     {
-                        // Llamar a la función GuardarOpers con las longitudes específicas para COR
                         GuardarOpers(6, 30, 2, 16, 1, 9);
                     }
                     else if (label1Content.StartsWith("SUP"))
+                    {
+                        GuardarOpers(6, 30, 2, 16, 1, 9);
+                    }
+                    else if (label1Content.StartsWith("CON"))
+                    {
+                        GuardarOpers(6, 30, 2, 16, 1, 9);
+                    }
+                    else if (label1Content.StartsWith("EPE"))
+                    {
+                        GuardarOpers(6, 30, 2, 16, 1, 9);
+                    }
+                    else if (label1Content.StartsWith("GEO"))
+                    {
+                    }
+                    else if (label1Content.StartsWith("ING"))
                     {
                         // Llamar a la función GuardarOpers con las longitudes específicas para SUP
                         GuardarOpers(6, 30, 2, 16, 1, 9);
@@ -1577,9 +1488,12 @@ namespace ManagerCont
                 OpenFileDialog openFileDialog1 = new OpenFileDialog();
                 openFileDialog1.Filter = "Archivos de Texto|*"; // Filtro para archivos de texto
 
+
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
+                    labelRUTA.Text = "";
                     string filePath = openFileDialog1.FileName;
+                    labelRUTA.Text = filePath;
 
                     // Extraer el nombre del archivo sin la extensión
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
@@ -1593,15 +1507,15 @@ namespace ManagerCont
                     // Aquí debe de llevar una instrucción dependiendo el label
                     if (fileNameWithoutExtension.StartsWith("CATMAY", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        InterpretarYMostrarCatmay(lineaCompleta);
+                        InterpretarYMostrarCatmay(filePath);
                     }
                     else if (fileNameWithoutExtension.StartsWith("CATAUX", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        InterpretarYMostrarCataux(lineaCompleta);
+                        InterpretarYMostrarCatmay(filePath);
                     }
                     else if (fileNameWithoutExtension.Equals("DATOS", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        InterpretarYMostrarDatos(lineaCompleta);
+                        InterpretarYMostrarDatos(filePath);
                     }
                     else if (fileNameWithoutExtension.StartsWith("SAC", StringComparison.CurrentCultureIgnoreCase) ||
                              fileNameWithoutExtension.StartsWith("COR", StringComparison.CurrentCultureIgnoreCase) ||
@@ -1612,7 +1526,7 @@ namespace ManagerCont
                              fileNameWithoutExtension.StartsWith("COS", StringComparison.CurrentCultureIgnoreCase) ||
                              fileNameWithoutExtension.StartsWith("SUP", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        InterpretarYMostrarOperaciones(lineaCompleta);
+                        InterpretarYMostrarOperaciones(filePath);
                     }
                     else
                     {
@@ -1714,13 +1628,13 @@ namespace ManagerCont
             }
         }
 
-        private void verControlToolStripMenuItem_Click(object sender, EventArgs e) 
-        { 
-        // Crear una instancia de Form3
+        private void verControlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Crear una instancia de Form3
             Form4 form4 = new Form4();
 
-        // Mostrar el Formulario 3
-        form4.Show(); // Usa form3.ShowDialog(); si quieres abrirlo como un formulario modal
+            // Mostrar el Formulario 3
+            form4.Show(); // Usa form3.ShowDialog(); si quieres abrirlo como un formulario modal
         }
 
         private void clasificarCostosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1755,6 +1669,56 @@ namespace ManagerCont
                 // Manejar cualquier excepción que ocurra
                 MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ButtonPrueba_Click_1(object sender, EventArgs e)
+        {
+            {
+                string filePath = @"C:\Users\david.albino\Desktop\Contas y costos\Contabilidades\CORDINA\COR2024\CATAUX"; // Cambia esta ruta según tu archivo
+                int recordLength = 64; // Longitud fija de cada registro
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
+
+                try
+                {
+                    // Definir columnas de ejemplo (modifica según los datos en el archivo)
+                    dataGridView1.Columns.Add("Cuenta", "Cuenta");
+                    dataGridView1.Columns.Add("Nombre", "Nombre");
+                    dataGridView1.Columns.Add("Dineros", "Dineros");
+                    dataGridView1.Columns.Add("RangoInf", "RangoInf");
+                    dataGridView1.Columns.Add("RangoSup", "RangoSup");
+
+                    // Abrir el archivo para lectura
+                    using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                    using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
+                    {
+                        long fileLength = fs.Length;
+                        long recordCount = fileLength / recordLength;
+
+                        // Leer cada registro
+                        for (int i = 0; i < recordCount; i++)
+                        {
+                            byte[] buffer = reader.ReadBytes(recordLength);
+                            string record = Encoding.Default.GetString(buffer);
+
+                            // Separar los campos según la estructura (ajustar a tu formato)
+                            string Cuenta = record.Substring(0, 6).Trim();      
+                            string Nombre = record.Substring(6, 32).Trim();     
+                            string Dineros = record.Substring(38, 16).Trim();   
+                            string RangoInf = record.Substring(54, 5).Trim();   
+                            string RangoSup = record.Substring(59, 5).Trim();
+
+                            // Agregar fila a la DataGridView
+                            dataGridView1.Rows.Add(Cuenta, Nombre, Dineros, RangoInf, RangoSup);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
         }
     }
 }

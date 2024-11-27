@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ManagerCont
@@ -131,7 +133,51 @@ namespace ManagerCont
             }
         }
 
-        private void SubirDatos()
+
+            private void ButtonPrueba_Click(object sender, EventArgs e)
+            {
+                string filePath = @"C:\Users\david.albino\Desktop\Contas y costos\Contabilidades\COR"; // Cambia esta ruta según tu archivo
+                int recordLength = 100; // Longitud fija de cada registro
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
+
+                try
+                {
+                    // Definir columnas de ejemplo (modifica según los datos en el archivo)
+                    dataGridView1.Columns.Add("Columna1", "Campo 1");
+                    dataGridView1.Columns.Add("Columna2", "Campo 2");
+                    dataGridView1.Columns.Add("Columna3", "Campo 3");
+
+                    // Abrir el archivo para lectura
+                    using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                    using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
+                    {
+                        long fileLength = fs.Length;
+                        long recordCount = fileLength / recordLength;
+
+                        // Leer cada registro
+                        for (int i = 0; i < recordCount; i++)
+                        {
+                            byte[] buffer = reader.ReadBytes(recordLength);
+                            string record = Encoding.Default.GetString(buffer);
+
+                            // Separar los campos según la estructura (ajustar a tu formato)
+                            string campo1 = record.Substring(0, 20).Trim(); // Primer campo, 20 caracteres
+                            string campo2 = record.Substring(20, 30).Trim(); // Segundo campo, 30 caracteres
+                            string campo3 = record.Substring(50, 50).Trim(); // Tercer campo, 50 caracteres
+
+                            // Agregar fila a la DataGridView
+                            dataGridView1.Rows.Add(campo1, campo2, campo3);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+    private void SubirDatos()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
