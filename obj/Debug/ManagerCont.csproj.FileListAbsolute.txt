@@ -11,3 +11,16 @@ C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont
 C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont.Form2.resources
 C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont.Form3.resources
 C:\Users\david.albino\source\repos\ManagerCont\ManagerCont\obj\Debug\ManagerCont.Form4.resources
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.csproj.AssemblyReference.cache
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.Form1.resources
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.Form2.resources
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.Form3.resources
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.Form4.resources
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.Properties.Resources.resources
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.csproj.GenerateResource.cache
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.csproj.CoreCompileInputs.cache
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.exe
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\obj\Debug\ManagerCont.pdb
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\bin\Debug\ManagerCont.exe.config
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\bin\Debug\ManagerCont.exe
+C:\Users\desarrollo.conta\Desktop\ContManagerActualizado\bin\Debug\ManagerCont.pdb
