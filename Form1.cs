@@ -506,40 +506,41 @@ namespace ManagerCont
             try
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
-                saveFileDialog1.Title = "Guardar datoS";
+                saveFileDialog1.Filter = "Archivo Binario|*"; // Filtro para archivos binarios
+                saveFileDialog1.Title = "Guardar datos";
                 saveFileDialog1.FileName = "OPER"; // Nombre base del archivo
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = saveFileDialog1.FileName;
 
-                    // Crear un StringBuilder para construir el contenido del archivo
-                    StringBuilder sb = new StringBuilder();
-
-                    // Construir el contenido del archivo a partir de los datos del DataGridView
-                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    // Crear un archivo binario para guardar los datos
+                    using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    using (BinaryWriter writer = new BinaryWriter(fs, Encoding.Default))
                     {
-                        // Verificar si la fila no está vacía
-                        if (!row.IsNewRow)
+                        // Iterar sobre las filas del DataGridView
+                        foreach (DataGridViewRow row in dataGridView2.Rows)
                         {
-                            // Obtener y formatear los valores de las celdas
-                            string CTA = Convert.ToString(row.Cells["CTA"].Value).PadRight(CTA_Length).Substring(0, CTA_Length);
-                            string descr = Convert.ToString(row.Cells["descr"].Value).PadRight(descr_Length).Substring(0, descr_Length);
-                            string fe = Convert.ToString(row.Cells["fe"].Value).PadRight(fe_Length).Substring(0, fe_Length);
-                            string impte = Convert.ToString(row.Cells["impte"].Value).PadRight(impte_Length).Substring(0, impte_Length);
-                            string indenti = Convert.ToString(row.Cells["indenti"].Value).PadRight(indenti_Length).Substring(0, indenti_Length);
-                            string real = Convert.ToString(row.Cells["real"].Value).PadRight(real_Length).Substring(0, real_Length);
+                            // Verificar si la fila no está vacía
+                            if (!row.IsNewRow)
+                            {
+                                // Obtener y formatear los valores de las celdas
+                                string CTA = Convert.ToString(row.Cells["CTA"].Value).PadRight(CTA_Length).Substring(0, CTA_Length);
+                                string descr = Convert.ToString(row.Cells["descr"].Value).PadRight(descr_Length).Substring(0, descr_Length);
+                                string fe = Convert.ToString(row.Cells["fe"].Value).PadRight(fe_Length).Substring(0, fe_Length);
+                                string impte = Convert.ToString(row.Cells["impte"].Value).PadRight(impte_Length).Substring(0, impte_Length);
+                                string indenti = Convert.ToString(row.Cells["indenti"].Value).PadRight(indenti_Length).Substring(0, indenti_Length);
+                                string real = Convert.ToString(row.Cells["real"].Value).PadRight(real_Length).Substring(0, real_Length);
 
-                            // Combinar los campos en una línea y agregar al StringBuilder
-                            string line = $"{CTA}{descr}{fe}{impte}{indenti}{real}";
-                            sb.Append(line); // Usar Append en lugar de AppendLine para evitar saltos de línea adicionales
+                                // Combinar los campos en una línea binaria
+                                string record = $"{CTA}{descr}{fe}{impte}{indenti}{real}";
+
+                                // Escribir los bytes en el archivo binario
+                                byte[] buffer = Encoding.Default.GetBytes(record);
+                                writer.Write(buffer);
+                            }
                         }
                     }
-                    Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
-                    dataGridView1.DefaultCellStyle.Font = newFont;
-                    // Escribir el contenido del StringBuilder en el archivo de texto
-                    File.WriteAllText(filePath, sb.ToString());
 
                     MessageBox.Show("Datos guardados correctamente en: " + filePath, "Guardar datos",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -552,48 +553,51 @@ namespace ManagerCont
             }
         }
 
+
         private void GuardarCats(int Cuenta_Length, int Nombre_Length, int Saldo_Length, int Rango_Inf_Length, int Rango_Sup_Length)
         {
             try
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
-                saveFileDialog1.Title = "Guardar datos CATMAY en archivo de texto";
+                saveFileDialog1.Filter = "Archivo Binario|*"; // Filtro para archivos binarios
+                saveFileDialog1.Title = "Guardar datos CATMAY en archivo binario";
                 saveFileDialog1.FileName = "CATMAY"; // Nombre base del archivo
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = saveFileDialog1.FileName;
 
-                    // Crear un StringBuilder para construir el contenido del archivo
-                    StringBuilder sb = new StringBuilder();
-
-                    // Construir el contenido del archivo a partir de los datos del DataGridView
-                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    // Crear un archivo binario para guardar los datos
+                    using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    using (BinaryWriter writer = new BinaryWriter(fs, Encoding.Default))
                     {
-                        // Verificar si la fila no está vacía
-                        if (!row.IsNewRow)
+                        // Iterar sobre las filas del DataGridView
+                        foreach (DataGridViewRow row in dataGridView1.Rows)
                         {
-                            // Obtener y formatear los valores de las celdas según los parámetros proporcionados
-                            string Cuenta = Convert.ToString(row.Cells["Cuenta"].Value).PadRight(Cuenta_Length).Substring(0, Cuenta_Length);
-                            string Nombre = Convert.ToString(row.Cells["Nombre"].Value).PadRight(Nombre_Length).Substring(0, Nombre_Length);
+                            // Verificar si la fila no está vacía
+                            if (!row.IsNewRow)
+                            {
+                                // Obtener y formatear los valores de las celdas según los parámetros proporcionados
+                                string Cuenta = Convert.ToString(row.Cells["Cuenta"].Value).PadRight(Cuenta_Length).Substring(0, Cuenta_Length);
+                                string Nombre = Convert.ToString(row.Cells["Nombre"].Value).PadRight(Nombre_Length).Substring(0, Nombre_Length);
 
-                            // Obtener el valor de Saldo y quitar puntos si es necesario
-                            string SaldoValue = Convert.ToString(row.Cells["Saldo"].Value);
-                            SaldoValue = SaldoValue.Replace(".", ""); // Quitar puntos
+                                // Obtener el valor de Saldo y quitar puntos si es necesario
+                                string SaldoValue = Convert.ToString(row.Cells["Saldo"].Value);
+                                SaldoValue = SaldoValue.Replace(".", ""); // Quitar puntos
+                                string Saldo = SaldoValue.PadRight(Saldo_Length).Substring(0, Saldo_Length);
 
-                            string Saldo = SaldoValue.PadRight(Saldo_Length).Substring(0, Saldo_Length);
-                            string Rango_Inf = Convert.ToString(row.Cells["Rango_Inf"].Value).PadRight(Rango_Inf_Length).Substring(0, Rango_Inf_Length);
-                            string Rango_Sup = Convert.ToString(row.Cells["Rango_Sup"].Value).PadRight(Rango_Sup_Length).Substring(0, Rango_Sup_Length);
+                                string Rango_Inf = Convert.ToString(row.Cells["Rango_Inf"].Value).PadRight(Rango_Inf_Length).Substring(0, Rango_Inf_Length);
+                                string Rango_Sup = Convert.ToString(row.Cells["Rango_Sup"].Value).PadRight(Rango_Sup_Length).Substring(0, Rango_Sup_Length);
 
-                            // Combinar los campos en una línea y agregar al StringBuilder
-                            string line = $"{Cuenta}{Nombre}{Saldo}{Rango_Inf}{Rango_Sup}";
-                            sb.Append(line); // Usar Append en lugar de AppendLine para evitar saltos de línea adicionales
+                                // Combinar los campos en un registro binario
+                                string record = $"{Cuenta}{Nombre}{Saldo}{Rango_Inf}{Rango_Sup}";
+
+                                // Escribir los bytes en el archivo binario
+                                byte[] buffer = Encoding.Default.GetBytes(record);
+                                writer.Write(buffer);
+                            }
                         }
                     }
-
-                    // Escribir el contenido del StringBuilder en el archivo de texto
-                    File.WriteAllText(filePath, sb.ToString());
 
                     MessageBox.Show("Datos CATMAY guardados correctamente en: " + filePath, "Guardar datos",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -606,47 +610,50 @@ namespace ManagerCont
             }
         }
 
+
         private void GuardarDatos(int D1_Length, int D2_Length, int D3_Length, int No_arch_Length, int a_o_Length, int Others1_Length, int ultimaPol1_Length, int ultimoReg_Length, int others_Length)
         {
             try
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Archivo de Texto|*"; // Filtro para archivos de texto con extensión .txt
-                saveFileDialog1.Title = "Guardar datos en archivo de texto";
+                saveFileDialog1.Filter = "Archivo Binario|*"; // Filtro para archivos binarios
+                saveFileDialog1.Title = "Guardar datos en archivo binario";
                 saveFileDialog1.FileName = "DATOS"; // Nombre base del archivo
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = saveFileDialog1.FileName;
 
-                    // Crear un StringBuilder para construir el contenido del archivo
-                    StringBuilder sb = new StringBuilder();
-
-                    // Construir el contenido del archivo a partir de los datos del DataGridView
-                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    // Crear un archivo binario para guardar los datos
+                    using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    using (BinaryWriter writer = new BinaryWriter(fs, Encoding.Default))
                     {
-                        // Verificar si la fila no está vacía
-                        if (!row.IsNewRow)
+                        // Construir el contenido del archivo a partir de los datos del DataGridView
+                        foreach (DataGridViewRow row in dataGridView1.Rows)
                         {
-                            // Obtener y formatear los valores de las celdas según los parámetros proporcionados
-                            string D1 = Convert.ToString(row.Cells["D1"].Value).PadRight(D1_Length).Substring(0, D1_Length);
-                            string D2 = Convert.ToString(row.Cells["D2"].Value).PadRight(D2_Length).Substring(0, D2_Length);
-                            string D3 = Convert.ToString(row.Cells["D3"].Value).PadRight(D3_Length).Substring(0, D3_Length);
-                            string No_arch = Convert.ToString(row.Cells["No_arch"].Value).PadRight(No_arch_Length).Substring(0, No_arch_Length);
-                            string a_o = Convert.ToString(row.Cells["a_o"].Value).PadRight(a_o_Length).Substring(0, a_o_Length);
-                            string Others1 = Convert.ToString(row.Cells["others1"].Value).PadRight(Others1_Length).Substring(0, Others1_Length);
-                            string ultimaPol1 = Convert.ToString(row.Cells["ultimaPol1"].Value).PadRight(ultimaPol1_Length).Substring(0, ultimaPol1_Length);
-                            string ultimoReg = Convert.ToString(row.Cells["ultimaOperacionReg"].Value).PadRight(ultimoReg_Length).Substring(0, ultimoReg_Length);
-                            string others = Convert.ToString(row.Cells["others"].Value).PadRight(others_Length).Substring(0, others_Length);
+                            // Verificar si la fila no está vacía
+                            if (!row.IsNewRow)
+                            {
+                                // Obtener y formatear los valores de las celdas según los parámetros proporcionados
+                                string D1 = Convert.ToString(row.Cells["D1"].Value).PadRight(D1_Length).Substring(0, D1_Length);
+                                string D2 = Convert.ToString(row.Cells["D2"].Value).PadRight(D2_Length).Substring(0, D2_Length);
+                                string D3 = Convert.ToString(row.Cells["D3"].Value).PadRight(D3_Length).Substring(0, D3_Length);
+                                string No_arch = Convert.ToString(row.Cells["No_arch"].Value).PadRight(No_arch_Length).Substring(0, No_arch_Length);
+                                string a_o = Convert.ToString(row.Cells["a_o"].Value).PadRight(a_o_Length).Substring(0, a_o_Length);
+                                string Others1 = Convert.ToString(row.Cells["others1"].Value).PadRight(Others1_Length).Substring(0, Others1_Length);
+                                string ultimaPol1 = Convert.ToString(row.Cells["ultimaPol1"].Value).PadRight(ultimaPol1_Length).Substring(0, ultimaPol1_Length);
+                                string ultimoReg = Convert.ToString(row.Cells["ultimaOperacionReg"].Value).PadRight(ultimoReg_Length).Substring(0, ultimoReg_Length);
+                                string others = Convert.ToString(row.Cells["others"].Value).PadRight(others_Length).Substring(0, others_Length);
 
-                            // Combinar los campos en una línea y agregar al StringBuilder
-                            string line = $"{D1}{D2}{D3}{No_arch}{a_o}{Others1}{ultimaPol1}{ultimoReg}{others}";
-                            sb.Append(line); // Usar Append en lugar de AppendLine para evitar saltos de línea adicionales
+                                // Combinar los campos en un registro binario
+                                string record = $"{D1}{D2}{D3}{No_arch}{a_o}{Others1}{ultimaPol1}{ultimoReg}{others}";
+
+                                // Escribir los bytes en el archivo binario
+                                byte[] buffer = Encoding.Default.GetBytes(record);
+                                writer.Write(buffer);
+                            }
                         }
                     }
-
-                    // Escribir el contenido del StringBuilder en el archivo de texto
-                    File.WriteAllText(filePath, sb.ToString());
 
                     MessageBox.Show("Datos guardados correctamente en: " + filePath, "Guardar datos",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -658,6 +665,7 @@ namespace ManagerCont
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         /*------------------------------------------------------------------------------------------------*/
 
