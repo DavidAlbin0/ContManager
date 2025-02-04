@@ -37,3 +37,16 @@ C:\Users\david.albino\Source\Repos\ContManagersa\obj\Debug\ManagerCont.csproj.Ge
 C:\Users\david.albino\Source\Repos\ContManagersa\obj\Debug\ManagerCont.csproj.CoreCompileInputs.cache
 C:\Users\david.albino\Source\Repos\ContManagersa\obj\Debug\ManagerCont.exe
 C:\Users\david.albino\Source\Repos\ContManagersa\obj\Debug\ManagerCont.pdb
+C:\Users\david.albino\Source\Repos\ContManagerss\bin\Debug\ManagerCont.exe.config
+C:\Users\david.albino\Source\Repos\ContManagerss\bin\Debug\ManagerCont.exe
+C:\Users\david.albino\Source\Repos\ContManagerss\bin\Debug\ManagerCont.pdb
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.csproj.AssemblyReference.cache
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.Form1.resources
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.Form2.resources
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.Form3.resources
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.Form4.resources
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.Properties.Resources.resources
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.csproj.GenerateResource.cache
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.csproj.CoreCompileInputs.cache
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.exe
+C:\Users\david.albino\Source\Repos\ContManagerss\obj\Debug\ManagerCont.pdb

@@ -28,6 +28,20 @@ namespace ManagerCont
         private List<DataGridViewCell> searchResults = new List<DataGridViewCell>();
         private int currentSearchIndex = -1;
         private conexion _conexion;
+        struct Per
+        {
+            public string nom;
+            public string ape1;
+            public string ape2;
+            public string RFC;
+            public string imss;
+            public string fal;
+            public string fab;
+            public decimal ingr;
+            public decimal viat;
+            public decimal otras;
+            public decimal integrado;
+        }
         public Form1()
         {
             InitializeComponent();
@@ -95,6 +109,7 @@ namespace ManagerCont
             labelVista2.Visible = false;
             ButtonPrueba.Visible = false;
             button6.Visible = false;
+
 
         }
 
@@ -232,6 +247,77 @@ namespace ManagerCont
                 MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        private void InterpretarYMostrarPersonal(string linea)
+        {
+            string filePath = labelRuta1.Text;
+            int recordLength = 152; // Longitud fija de cada registro
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+
+            try
+            {
+                // Definir columnas de ejemplo (modifica según los datos en el archivo)
+                dataGridView2.Columns.Add("Nom", "Nom");
+                dataGridView2.Columns.Add("Ape1", "Ape1");
+                dataGridView2.Columns.Add("Ape2", "Ape2");
+                dataGridView2.Columns.Add("RFC", "RFC");
+                dataGridView2.Columns.Add("Imss", "Imss");
+                dataGridView2.Columns.Add("Fal", "Fal");
+                dataGridView2.Columns.Add("Fab", "Fab");
+                dataGridView2.Columns.Add("Ingr", "Ingr");
+                dataGridView2.Columns.Add("Viat", "Viat");
+                dataGridView2.Columns.Add("Otras", "Otras");
+                dataGridView2.Columns.Add("Integrado", "Integrado");
+
+                Font newFont = new Font("Arial", 7, FontStyle.Bold);
+                dataGridView2.DefaultCellStyle.Font = newFont;
+
+                // Abrir el archivo para lectura
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
+                {
+                    long fileLength = fs.Length;
+                    long recordCount = fileLength / recordLength;
+
+                    // Leer cada registro
+                    for (int i = 0; i < recordCount; i++)
+                    {
+                        byte[] buffer = reader.ReadBytes(recordLength);
+
+                        // Leer los valores de tipo string
+                        string Nom = Encoding.Default.GetString(buffer, 0, 20).Trim();
+                        string Ape1 = Encoding.Default.GetString(buffer, 20, 20).Trim();
+                        string Ape2 = Encoding.Default.GetString(buffer, 40, 20).Trim();
+                        string RFC = Encoding.Default.GetString(buffer, 60, 18).Trim();
+                        string Imss = Encoding.Default.GetString(buffer, 78, 18).Trim();
+                        string Fal = Encoding.Default.GetString(buffer, 96, 12).Trim();
+                        string Fab = Encoding.Default.GetString(buffer, 108, 12).Trim();
+
+                        // Leer los valores de tipo Currency (8 bytes cada uno)
+                        long ingrRaw = BitConverter.ToInt64(buffer, 120);
+                        long viatRaw = BitConverter.ToInt64(buffer, 128);
+                        long otrasRaw = BitConverter.ToInt64(buffer, 136);
+                        long integradoRaw = BitConverter.ToInt64(buffer, 144);
+
+                        // Convertir a decimal dividiendo por 10000m (manteniendo precisión de 4 decimales)
+                        decimal Ingr = ingrRaw / 10000m;
+                        decimal Viat = viatRaw / 10000m;
+                        decimal Otras = otrasRaw / 10000m;
+                        decimal Integrado = integradoRaw / 10000m;
+
+                        // Agregar fila a la DataGridView
+                        dataGridView2.Rows.Add(Nom, Ape1, Ape2, RFC, Imss, Fal, Fab, Ingr, Viat, Otras, Integrado);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         private void InterpretarYMostrarDatos(string linea)
         {
@@ -553,6 +639,70 @@ namespace ManagerCont
             }
         }
 
+        private void GuardarPer()
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Archivo Binario|*"; // Filtro para archivos binarios
+                saveFileDialog1.Title = "Guardar datos PERSONAL en archivo binario";
+                saveFileDialog1.FileName = "PERSONAL"; // Nombre base del archivo
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog1.FileName;
+
+                    using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    using (BinaryWriter writer = new BinaryWriter(fs, Encoding.Default))
+                    {
+                        foreach (DataGridViewRow row in dataGridView2.Rows)
+                        {
+                            if (!row.IsNewRow)
+                            {
+                                // Leer y formatear las cadenas (paddings y longitudes específicas)
+                                string Nom = Convert.ToString(row.Cells["Nom"].Value).PadRight(20).Substring(0, 20);
+                                string Ape1 = Convert.ToString(row.Cells["Ape1"].Value).PadRight(20).Substring(0, 20);
+                                string Ape2 = Convert.ToString(row.Cells["Ape2"].Value).PadRight(20).Substring(0, 20);
+                                string RFC = Convert.ToString(row.Cells["RFC"].Value).PadRight(18).Substring(0, 18);
+                                string Imss = Convert.ToString(row.Cells["Imss"].Value).PadRight(18).Substring(0, 18);
+                                string Fal = Convert.ToString(row.Cells["Fal"].Value).PadRight(12).Substring(0, 12);
+                                string Fab = Convert.ToString(row.Cells["Fab"].Value).PadRight(12).Substring(0, 12);
+
+                                // Leer y convertir los valores de tipo long
+                                long Ingr = Convert.ToInt64(row.Cells["Ingr"].Value);
+                                long Viat = Convert.ToInt64(row.Cells["Viat"].Value);
+                                long Otras = Convert.ToInt64(row.Cells["Otras"].Value);
+                                long Integrado = Convert.ToInt64(row.Cells["Integrado"].Value);
+
+                                // Escribir cadenas en el archivo binario
+                                writer.Write(Encoding.Default.GetBytes(Nom));
+                                writer.Write(Encoding.Default.GetBytes(Ape1));
+                                writer.Write(Encoding.Default.GetBytes(Ape2));
+                                writer.Write(Encoding.Default.GetBytes(RFC));
+                                writer.Write(Encoding.Default.GetBytes(Imss));
+                                writer.Write(Encoding.Default.GetBytes(Fal));
+                                writer.Write(Encoding.Default.GetBytes(Fab));
+
+                                // Escribir valores numéricos en el archivo binario
+                                writer.Write(Ingr);
+                                writer.Write(Viat);
+                                writer.Write(Otras);
+                                writer.Write(Integrado);
+                            }
+                        }
+                    }
+
+                    MessageBox.Show("Datos PERSONAL guardados correctamente en: " + filePath, "Guardar datos",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar los datos PERSONAL: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         private void GuardarCats(int Cuenta_Length, int Nombre_Length, int Saldo_Length, int Rango_Inf_Length, int Rango_Sup_Length)
         {
@@ -843,6 +993,10 @@ namespace ManagerCont
                         else if (fileNameWithoutExtension.StartsWith("CATAUX", StringComparison.CurrentCultureIgnoreCase))
                         {
                             InterpretarYMostrarCatmay(filePath);
+                        }
+                        else if (fileNameWithoutExtension.StartsWith("PERSONAL", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            InterpretarYMostrarPersonal(filePath);
                         }
                         else if (fileNameWithoutExtension.Equals("DATOS", StringComparison.CurrentCultureIgnoreCase))
                         {
@@ -1300,6 +1454,10 @@ namespace ManagerCont
                     {
                         InterpretarYMostrarDatos(lineaCompleta);
                     }
+                    else if (fileNameWithoutExtension.Equals("PERSONAL", StringComparison.OrdinalIgnoreCase))
+                    {
+                        InterpretarYMostrarPersonal(lineaCompleta);
+                    }
                     else if (fileNameWithoutExtension.StartsWith("SAC", StringComparison.OrdinalIgnoreCase) ||
 
                              fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
@@ -1341,6 +1499,12 @@ namespace ManagerCont
                 {
                     // Llamar a la función GuardarCats con las longitudes específicas
                     GuardarCats(6, 32, 16, 5, 5);
+                    // Formatear y alinear la columna en el índice 2
+                }
+                else if (label1Content.Contains("PERSONAL") || label1Content.Contains("PERSONAL"))
+                {
+                    // Llamar a la función GuardarCats con las longitudes específicas
+                    GuardarPer();
                     // Formatear y alinear la columna en el índice 2
                 }
                 else if (label1Content.StartsWith("SAC") || label1Content.StartsWith("COR") || label1Content.StartsWith("SUP"))
