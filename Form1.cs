@@ -28,20 +28,7 @@ namespace ManagerCont
         private List<DataGridViewCell> searchResults = new List<DataGridViewCell>();
         private int currentSearchIndex = -1;
         private conexion _conexion;
-        struct Per
-        {
-            public string nom;
-            public string ape1;
-            public string ape2;
-            public string RFC;
-            public string imss;
-            public string fal;
-            public string fab;
-            public decimal ingr;
-            public decimal viat;
-            public decimal otras;
-            public decimal integrado;
-        }
+
         public Form1()
         {
             InitializeComponent();
@@ -247,6 +234,186 @@ namespace ManagerCont
                 MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void InterpretarYMostrarNom(string linea)
+        {
+            string filePath = labelRuta1.Text;
+            int recordLength = 192; // Longitud fija de cada registro
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+
+            try
+            {
+                // Definir las columnas del DataGridView
+                dataGridView2.Columns.Add("dias", "Dias");
+                dataGridView2.Columns.Add("hsnor", "Hornno");
+                dataGridView2.Columns.Add("hs_no", "HorExtr");
+                dataGridView2.Columns.Add("hsdbl", "HorDob");
+                dataGridView2.Columns.Add("hs_db", "HorDobE");
+                dataGridView2.Columns.Add("hstri", "Horastrip");
+                dataGridView2.Columns.Add("hs_tr", "Horas Triples Extra");
+                dataGridView2.Columns.Add("ispt", "ISPT");
+                dataGridView2.Columns.Add("crdsal", "Crédito Salarial");
+                dataGridView2.Columns.Add("imss", "IMSS");
+                dataGridView2.Columns.Add("sueldo", "Sueldo");
+                dataGridView2.Columns.Add("hs_nor", "Horas Normales Extra");
+                dataGridView2.Columns.Add("hs_dbl", "Horas Dobles Normales");
+                dataGridView2.Columns.Add("hs_tri", "Horas Triples Normales");
+                dataGridView2.Columns.Add("viaticos", "Viáticos");
+                dataGridView2.Columns.Add("pvac", "Prima Vacacional");
+                dataGridView2.Columns.Add("otras", "Otras Percepciones");
+                dataGridView2.Columns.Add("aguin", "Aguinaldo");
+                dataGridView2.Columns.Add("ptu", "PTU");
+                dataGridView2.Columns.Add("exentos", "Exentos");
+                dataGridView2.Columns.Add("prestamos", "Préstamos");
+                dataGridView2.Columns.Add("fonacot", "Fonacot");
+                dataGridView2.Columns.Add("telefono", "Teléfono");
+                dataGridView2.Columns.Add("otrade", "Otras Deducciones");
+
+                Font newFont = new Font("Arial", 7, FontStyle.Bold);
+                dataGridView2.DefaultCellStyle.Font = newFont;
+
+                // Abrir el archivo para lectura
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
+                {
+                    long fileLength = fs.Length;
+                    long recordCount = fileLength / recordLength;
+
+                    // Leer cada registro
+                    for (int i = 0; i < recordCount; i++)
+                    {
+                        byte[] buffer = reader.ReadBytes(recordLength);
+
+                        // Asegurarse de que no se exceda el rango de bytes disponibles
+                        if (buffer.Length < 184)
+                        {
+                            MessageBox.Show("El registro es más corto de lo esperado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            continue;
+                        }
+
+                        // Convertir los bytes a valores de tipo long
+                        long diass = BitConverter.ToInt64(buffer, 0);
+                        long hsnors = BitConverter.ToInt64(buffer, 8);
+                        long hs_nos = BitConverter.ToInt64(buffer, 16);
+                        long hsdbls = BitConverter.ToInt64(buffer, 24);
+                        long hs_dbs = BitConverter.ToInt64(buffer, 32);
+                        long hstris = BitConverter.ToInt64(buffer, 40);
+                        long hs_trs = BitConverter.ToInt64(buffer, 48);
+                        long ispts = BitConverter.ToInt64(buffer, 56);
+                        long crdsals = BitConverter.ToInt64(buffer, 64);
+                        long imsss = BitConverter.ToInt64(buffer, 72);
+                        long sueldos = BitConverter.ToInt64(buffer, 80);
+                        long hs_nors = BitConverter.ToInt64(buffer, 88);
+                        long hs_dbls = BitConverter.ToInt64(buffer, 96);
+                        long hs_tris = BitConverter.ToInt64(buffer, 104);
+                        long viaticoss = BitConverter.ToInt64(buffer, 112);
+                        long pvacs = BitConverter.ToInt64(buffer, 120);
+                        long otrass = BitConverter.ToInt64(buffer, 128);
+                        long aguins = BitConverter.ToInt64(buffer, 136);
+                        long ptus = BitConverter.ToInt64(buffer, 144);
+                        long exentoss = BitConverter.ToInt64(buffer, 152);
+                        long prestamoss = BitConverter.ToInt64(buffer, 160);
+                        long fonacots = BitConverter.ToInt64(buffer, 168);
+                        long telefonos = BitConverter.ToInt64(buffer, 176);
+                        long otrades = BitConverter.ToInt64(buffer, 184);
+
+                        // Convertir los valores de long a decimal
+                        decimal dias = diass / 10000m;
+                        decimal hsnor = hsnors / 10000m;
+                        decimal hs_no = hs_nos / 10000m;
+                        decimal hsdbl = hsdbls / 10000m;
+                        decimal hs_db = hs_dbls / 10000m;
+                        decimal hstri = hstris / 10000m;
+                        decimal hs_tr = hs_trs / 10000m;
+                        decimal ispt = ispts / 10000m;
+                        decimal crdsal = crdsals / 10000m;
+                        decimal imss = imsss / 10000m;
+                        decimal sueldo = sueldos / 10000m;
+                        decimal hs_nor = hs_nors / 10000m;
+                        decimal hs_dbl = hs_dbls / 10000m;
+                        decimal hs_tri = hs_tris / 10000m;
+                        decimal viaticos = viaticoss / 10000m;
+                        decimal pvac = pvacs / 10000m;
+                        decimal otras = otrass / 10000m;
+                        decimal aguin = aguins / 10000m;
+                        decimal ptu = ptus / 10000m;
+                        decimal exentos = exentoss / 10000m;
+                        decimal prestamos = prestamoss / 10000m;
+                        decimal fonacot = fonacots / 10000m;
+                        decimal telefono = telefonos / 10000m;
+                        decimal otrade = otrades / 10000m;
+
+                        // Agregar fila con los valores extraídos
+                        dataGridView2.Rows.Add(dias, hsnor, hs_no, hsdbl, hs_db, hstri, hs_tr, ispt, crdsal, imss,
+                                               sueldo, hs_nor, hs_dbl, hs_tri, viaticos, pvac, otras, aguin, ptu,
+                                               exentos, prestamos, fonacot, telefono, otrade);
+                    }
+                }
+
+                MessageBox.Show("Datos interpretados y mostrados correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al interpretar el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void InterpretarYMostrarEmpre(string linea)
+        {
+            string filePath = labelRuta1.Text; // Ruta del archivo desde la etiqueta
+            int recordLength = 92; // Longitud fija de cada registro según la estructura
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+
+            try
+            {
+                // Definir las columnas del DataGridView
+                dataGridView2.Columns.Add("name", "Nombre");
+                dataGridView2.Columns.Add("ao", "Año");
+                dataGridView2.Columns.Add("sm", "Salario Mensual");
+                dataGridView2.Columns.Add("psub", "Prima Sub");
+                dataGridView2.Columns.Add("fecha", "Fecha");
+
+                Font newFont = new Font("Arial", 7, FontStyle.Bold); // Cambia "Arial" y otros parámetros según tus preferencias
+                dataGridView2.DefaultCellStyle.Font = newFont;
+                // Abrir el archivo para lectura
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
+                {
+                    long fileLength = fs.Length;
+                    long recordCount = fileLength / recordLength;
+
+                    // Leer cada registro
+                    for (int i = 0; i < recordCount; i++)
+                    {
+                        byte[] buffer = reader.ReadBytes(recordLength);
+                        string record = Encoding.Default.GetString(buffer);
+
+
+                        string name = Encoding.Default.GetString(buffer, 0, 60).Trim();
+                        int ao = BitConverter.ToInt16(buffer, 60); // Convertir a entero
+                        long smRaw = BitConverter.ToInt64(buffer, 62);
+                        long psubRaw = BitConverter.ToInt64(buffer, 70);
+                        string fecha = Encoding.Default.GetString(buffer, 78, 14).Trim();
+
+                        // Convertir los valores de tipo Currency (8 bytes cada uno) a decimal
+                        decimal sm = smRaw / 10000m;
+                        decimal psub = psubRaw / 10000m;
+
+                        // Agregar fila con los valores extraídos
+                        dataGridView2.Rows.Add(name, ao, sm, psub, fecha);
+                    }
+                }
+
+                MessageBox.Show("Datos interpretados y mostrados correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al interpretar el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
 
         private void InterpretarYMostrarPersonal(string linea)
@@ -586,6 +753,62 @@ namespace ManagerCont
             }
         }
 
+        private void InterpretarYMostrarEmp1(string linea)
+        {
+            string filePath = labelRuta1.Text; // Ruta del archivo desde la etiqueta
+            int recordLength = 498; // Longitud fija de cada registro según la estructura
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+
+            try
+            {
+                // Definir las columnas del DataGridView
+                dataGridView2.Columns.Add("Direccion", "Dirección");
+                dataGridView2.Columns.Add("Colonia", "Colonia");
+                dataGridView2.Columns.Add("Ciudad", "Ciudad");
+                dataGridView2.Columns.Add("Estado", "Estado");
+                dataGridView2.Columns.Add("Delegacion", "Delegación");
+                dataGridView2.Columns.Add("Cpostal", "Código Postal");
+                dataGridView2.Columns.Add("correo", "Correo Electrónico");
+
+                // Establecer fuente personalizada para el DataGridView
+                Font newFont = new Font("Arial", 7, FontStyle.Bold);
+                dataGridView2.DefaultCellStyle.Font = newFont;
+
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(fs, Encoding.Default))
+                {
+                    long fileLength = fs.Length;
+                    long recordCount = fileLength / recordLength;
+
+                    // Leer cada registro
+                    for (int i = 0; i < recordCount; i++)
+                    {
+                        byte[] buffer = reader.ReadBytes(recordLength);
+
+                        // Leer valores de tipo string
+                        string Direccion = Encoding.Default.GetString(buffer, 0, 100).Trim();
+                        string Colonia = Encoding.Default.GetString(buffer, 100, 100).Trim();
+                        string Ciudad = Encoding.Default.GetString(buffer, 200, 100).Trim();
+                        string Estado = Encoding.Default.GetString(buffer, 300, 64).Trim();
+                        string Delegacion = Encoding.Default.GetString(buffer, 364, 64).Trim();
+                        string Cpostal = Encoding.Default.GetString(buffer, 428, 6).Trim();
+                        string correo = Encoding.Default.GetString(buffer, 434, 64).Trim();
+
+                        // Agregar fila con los valores extraídos
+                        dataGridView2.Rows.Add(Direccion, Colonia, Ciudad, Estado, Delegacion, Cpostal, correo);
+                    }
+                }
+
+                MessageBox.Show("Datos interpretados y mostrados correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al interpretar el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         // Funciónes para guardar los datos con la estructura especificada
         private void GuardarOpers(int CTA_Length, int descr_Length, int fe_Length, int impte_Length, int indenti_Length, int real_Length)
         {
@@ -638,6 +861,60 @@ namespace ManagerCont
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void GuardarEMP1(int Direccion_Length, int Colonia_Length, int Ciudad_Length, int Estado_Length, int Delegacion_Length, int Cpostal_Length, int correo_Length)
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Archivo Binario|*"; // Filtro para archivos binarios
+                saveFileDialog1.Title = "Guardar datos";
+                saveFileDialog1.FileName = "patata"; // Nombre base del archivo
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog1.FileName;
+
+                    // Crear un archivo binario para guardar los datos
+                    using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    using (BinaryWriter writer = new BinaryWriter(fs, Encoding.Default))
+                    {
+                        // Iterar sobre las filas del DataGridView
+                        foreach (DataGridViewRow row in dataGridView2.Rows)
+                        {
+                            // Verificar si la fila no está vacía
+                            if (!row.IsNewRow)
+                            {
+                                // Obtener y formatear los valores de las celdas
+                                string Direccion = Convert.ToString(row.Cells["Direccion"].Value).PadRight(100).Substring(0, 100);
+                                string Colonia = Convert.ToString(row.Cells["Colonia"].Value).PadRight(100).Substring(0, 100);
+                                string Ciudad = Convert.ToString(row.Cells["Ciudad"].Value).PadRight(100).Substring(0, 100);
+                                string Estado = Convert.ToString(row.Cells["Estado"].Value).PadRight(64).Substring(0, 64);
+                                string Delegacion = Convert.ToString(row.Cells["Delegacion"].Value).PadRight(64).Substring(0, 64);
+                                string Cpostal = Convert.ToString(row.Cells["Cpostal"].Value).PadRight(6).Substring(0, 6);
+                                string correo = Convert.ToString(row.Cells["correo"].Value).PadRight(64).Substring(0, 64);
+
+                                // Combinar los campos en una línea binaria
+                                string record = $"{Direccion}{Colonia}{Ciudad}{Estado}{Delegacion}{Cpostal}{correo}";
+
+                                // Escribir los bytes en el archivo binario
+                                byte[] buffer = Encoding.Default.GetBytes(record);
+                                writer.Write(buffer);
+                            }
+                        }
+                    }
+
+                    MessageBox.Show("Datos guardados correctamente en: " + filePath, "Guardar datos",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar los datos: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         private void GuardarPer()
         {
@@ -837,6 +1114,10 @@ namespace ManagerCont
                     GuardarCats(6, 32, 16, 5, 5);
                     // Formatear y alinear la columna en el índice 2
                 }
+                else if (label1Content.Contains("patata"))
+                {
+                    GuardarEMP1(100, 100, 100, 64, 64, 6, 64);
+                }
                 else if (label1Content.StartsWith("SAC") || label1Content.StartsWith("COR") || label1Content.StartsWith("SUP"))
                 {
                     // Determinar qué función llamar basado en el nombre del archivo sin extensión
@@ -998,6 +1279,18 @@ namespace ManagerCont
                         {
                             InterpretarYMostrarPersonal(filePath);
                         }
+                        else if (fileNameWithoutExtension.StartsWith("EMPRESA", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            InterpretarYMostrarEmpre(filePath);
+                        }
+                        else if (fileNameWithoutExtension.StartsWith("NOM", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            InterpretarYMostrarNom(filePath);
+                        }
+                        else if (fileNameWithoutExtension.StartsWith("patata", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            InterpretarYMostrarEmp1(filePath);
+                        }
                         else if (fileNameWithoutExtension.Equals("DATOS", StringComparison.CurrentCultureIgnoreCase))
                         {
                             InterpretarYMostrarDatos(filePath);
@@ -1131,6 +1424,10 @@ namespace ManagerCont
                         {
                             InterpretarYMostrarCatmay(lineaCompleta);
                         }
+                        else if (fileNameWithoutExtension.StartsWith("NOM", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            InterpretarYMostrarCatmay(lineaCompleta);
+                        }
                         else if (fileNameWithoutExtension.Equals("DATOS", StringComparison.CurrentCultureIgnoreCase))
                         {
                             InterpretarYMostrarDatos(lineaCompleta);
@@ -1211,6 +1508,7 @@ namespace ManagerCont
                         {
                             InterpretarYMostrarDatosDisabled(lineaCompleta);
                         }
+
                         else if (fileNameWithoutExtension.StartsWith("SAC", StringComparison.CurrentCultureIgnoreCase) ||
                                  fileNameWithoutExtension.StartsWith("COR", StringComparison.CurrentCultureIgnoreCase) ||
                                  fileNameWithoutExtension.StartsWith("EPE", StringComparison.CurrentCultureIgnoreCase) ||
@@ -1340,6 +1638,11 @@ namespace ManagerCont
                         CargarArchivoCSV(selectedFilePath);
                         label1.Text = "CATMAY"; // Asignar la ruta completa al label
                         break;
+                    case "patata":
+                        selectedFilePath = Path.Combine(archivosPath, "patata.csv");
+                        CargarArchivoCSV(selectedFilePath);
+                        label1.Text = "patata"; // Asignar la ruta completa al label
+                        break;
                     case "DATOS":
                         selectedFilePath = Path.Combine(archivosPath, "DATOS.csv");
                         CargarArchivoCSV(selectedFilePath);
@@ -1458,6 +1761,18 @@ namespace ManagerCont
                     {
                         InterpretarYMostrarPersonal(lineaCompleta);
                     }
+                    else if (fileNameWithoutExtension.Equals("NOM", StringComparison.OrdinalIgnoreCase))
+                    {
+                        InterpretarYMostrarNom(lineaCompleta); 
+                    }
+                    else if (fileNameWithoutExtension.Equals("EMPRESA", StringComparison.OrdinalIgnoreCase))
+                    {
+                        InterpretarYMostrarEmpre(lineaCompleta);
+                    }
+                    else if (fileNameWithoutExtension.Equals("patata", StringComparison.OrdinalIgnoreCase))
+                    {
+                        InterpretarYMostrarEmp1(lineaCompleta);
+                    }
                     else if (fileNameWithoutExtension.StartsWith("SAC", StringComparison.OrdinalIgnoreCase) ||
 
                              fileNameWithoutExtension.StartsWith("COR", StringComparison.OrdinalIgnoreCase) ||
@@ -1494,6 +1809,11 @@ namespace ManagerCont
                 {
                     // Llamar a la función GuardarDatos con las longitudes específicas
                     GuardarDatos(64, 60, 45, 15, 5, 25, 5, 6, 11);
+                }
+                if (label1Content.Contains("patata"))
+                {
+                    // Llamar a la función GuardarDatos con las longitudes específicas
+                    GuardarEMP1(100, 100, 100, 64, 64, 6, 64);
                 }
                 else if (label1Content.Contains("CATAUX") || label1Content.Contains("CATMAY"))
                 {
@@ -2058,6 +2378,13 @@ namespace ManagerCont
             }
 
             throw new Exception("No se pudo leer el archivo con las codificaciones disponibles.");
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string label1Content = label1.Text.ToUpper(); // Obtener el contenido del label 1 y convertirlo a mayúsculas
+
+            GuardarEMP1(100, 100, 100, 64, 64, 6, 64);
         }
 
         private string CleanContent(string content)
